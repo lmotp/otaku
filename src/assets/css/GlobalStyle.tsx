@@ -51,6 +51,12 @@ a {
   text-decoration: none;
   color: inherit;
 }
+button {
+	outline: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
 `;
 
 export default GlobalStyle;
