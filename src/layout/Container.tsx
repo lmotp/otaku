@@ -7,6 +7,7 @@ const MainContainer = styled.main`
   width: 100%;
   max-width: 1320px;
   height: 100vh;
+  padding-top: 40px;
 `;
 
 const Container: FC<ContainerProps> = ({ children }) => {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { UserTestCardType } from '../../pages/TestHome';
 
 interface UserTestCardProps {
-  cardInfoObj: UserTestCardType[];
+  cardInfoObj: UserTestCardType;
 }
 
 const UserTestCard = ({ cardInfoObj }: UserTestCardProps) => {
@@ -17,7 +17,7 @@ const UserTestCard = ({ cardInfoObj }: UserTestCardProps) => {
 
 export default UserTestCard;
 
-const TestCardWrap = styled.div<{ src: string }>`
+const TestCardWrap = styled.li<{ src: string }>`
   display: flex;
   align-items: center;
   justify-content: flex-end;
