@@ -3,10 +3,39 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/imgs/logo.svg';
 
+const Header = () => {
+  return (
+    <HeaderContainer>
+      <h1>
+        <Logo src={logo} />
+      </h1>
+      <nav>
+        <ul>
+          <TabList>
+            <GnbTab to="/">모임</GnbTab>
+          </TabList>
+          <TabList>
+            <GnbTab to="/test">테스트</GnbTab>
+          </TabList>
+          <TabList>
+            <GnbTab to="/category">카테고리</GnbTab>
+          </TabList>
+          <TabList>
+            <GnbTab to="/my-page">마이페이지</GnbTab>
+          </TabList>
+        </ul>
+      </nav>
+    </HeaderContainer>
+  );
+};
+
+export default Header;
+
 const HeaderContainer = styled.header`
-  height: 100vh;
-  padding-left: 80px;
+  margin-right: 120px;
+  padding-left: 100px;
   padding-top: 100px;
+  height: 100vh;
 `;
 
 const Logo = styled.img`
@@ -35,31 +64,3 @@ const GnbTab = styled(NavLink)`
     color: #01f5bb;
   }
 `;
-
-const Header = () => {
-  return (
-    <HeaderContainer>
-      <h1>
-        <Logo src={logo} />
-      </h1>
-      <nav>
-        <ul>
-          <TabList>
-            <GnbTab to="/">모임</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/test">테스트</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/category">카테고리</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/my-page">마이페이지</GnbTab>
-          </TabList>
-        </ul>
-      </nav>
-    </HeaderContainer>
-  );
-};
-
-export default Header;

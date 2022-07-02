@@ -4,6 +4,7 @@ import GlobalStyle from './assets/css/GlobalStyle';
 import Header from './layout/Header';
 import Container from './layout/Container';
 import TestHome from './pages/TestHome';
+import Aside from './layout/Aside';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<TestHome />} />
           </Routes>
         </Container>
+        <Aside />
       </BrowserRouter>
     </>
   );

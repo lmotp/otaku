@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MyTestCardType } from '../../pages/TestHome';
+import { IMyTestCard } from '../../typings/TestHomeType';
 
 interface MyTestCardProps {
-  cardInfoObj: MyTestCardType;
+  cardInfoObj: IMyTestCard;
 }
 
 const MyTestCard = ({ cardInfoObj }: MyTestCardProps) => {

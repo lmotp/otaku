@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import whee1 from '../assets/imgs/whee1.jfif';
 import whee2 from '../assets/imgs/whee2.jfif';
 import whee3 from '../assets/imgs/whee3.jfif';
@@ -11,41 +11,43 @@ import SubTitle from '../components/TestHome/SubTitle';
 import styled from 'styled-components';
 import MyTestCard from '../components/TestHome/MyTestCard';
 import MakeMyTestCard from '../components/TestHome/MakeMyTestCard';
+import Tag from '../components/TestHome/Tag';
 
-export interface UserTestCardType {
-  id: number;
-  src: string;
-  title: string;
-}
+const mokingHotUserItem = [
+  { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 2, src: whee2, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 3, src: whee3, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 4, src: whee4, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+];
 
-export interface MyTestCardType {
-  id: number;
-  src: string;
-  title: string;
-  view: number;
-  tag: string;
-  makeDay: Date;
-}
+const mokingNowUserItem = [
+  { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 2, src: whee2, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 3, src: whee3, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 4, src: whee4, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 5, src: whee5, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+];
+
+const mokingMyItem = [
+  { id: 1, src: whee5, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
+  { id: 2, src: whee6, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
+  { id: 3, src: whee7, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
+];
+
+const buttonTag = ['전체', '남자아이돌', '여자아이돌', '솔로가수', '배우', '작가', '기타'];
+
+const noneItemArray = Array(2).fill('');
 
 const TestHome = () => {
-  const mokingUserItem = [
-    { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?' },
-    { id: 2, src: whee2, title: '휘인의 유튜브 영상이 아닌것은?' },
-    { id: 3, src: whee3, title: '휘인의 유튜브 영상이 아닌것은?' },
-    { id: 4, src: whee4, title: '휘인의 유튜브 영상이 아닌것은?' },
-  ];
+  const [actvieButton, setActiveButton] = useState<string>('전체');
 
-  const mokingMyItem = [
-    { id: 1, src: whee5, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
-    { id: 2, src: whee6, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
-    { id: 3, src: whee7, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
-  ];
-
-  const noneItemArray = Array(2).fill('');
+  const onChangeActiveButton = (value: string) => {
+    setActiveButton(value);
+  };
 
   return (
     <section>
-      <SubTitle title="내가 만든 테스트" marginTop="0px" />
+      <SubTitle title="내가 만든 테스트" />
       <MyCardWrap>
         {noneItemArray.map((_, index) => {
           return <MakeMyTestCard key={index} />;
@@ -56,12 +58,54 @@ const TestHome = () => {
         })}
       </MyCardWrap>
 
-      <SubTitle title="지금 인기있는 테스트" marginTop="40px" />
-      <UserCardWrap>
-        {mokingUserItem.map((info) => {
-          return <UserTestCard key={info.id} cardInfoObj={info} />;
+      <TagWrap>
+        {buttonTag.map((tag, index) => {
+          return (
+            <Tag
+              key={index}
+              buttonTag={tag}
+              active={actvieButton === tag}
+              onChangeActiveButton={onChangeActiveButton}
+            />
+          );
         })}
-      </UserCardWrap>
+      </TagWrap>
+
+      <SubTitle title="지금 인기있는 테스트" />
+      <HotUserCardWrap>
+        {mokingHotUserItem.map((info) => {
+          return (
+            <UserTestCard
+              key={info.id}
+              cardInfoObj={info}
+              styleProps={{
+                width: '308px',
+                height: '460px',
+              }}
+              titleSize="1.5rem"
+              buttonStyleProps={{ buttonSize: '16px', width: '154px', height: '44px' }}
+            />
+          );
+        })}
+      </HotUserCardWrap>
+
+      <SubTitle title="지금 올라온 테스트" />
+      <NewUserCardWrap>
+        {mokingNowUserItem.map((info) => {
+          return (
+            <UserTestCard
+              key={info.id}
+              cardInfoObj={info}
+              styleProps={{
+                width: '240px',
+                height: '380px',
+              }}
+              titleSize="1.313rem"
+              buttonStyleProps={{ buttonSize: '14px', width: '120px', height: '36px' }}
+            />
+          );
+        })}
+      </NewUserCardWrap>
     </section>
   );
 };
@@ -72,6 +116,7 @@ const MyCardWrap = styled.ul`
   position: relative;
   display: flex;
   gap: 30px;
+  margin-bottom: 50px;
 
   &::before {
     content: '';
@@ -94,6 +139,7 @@ const MyCardWrap = styled.ul`
     top: 50%;
     left: 100%;
     transform: translate(-50%, -50%);
+    padding-bottom: 2px;
     padding-left: 2px;
 
     width: 40px;
@@ -109,7 +155,20 @@ const MyCardWrap = styled.ul`
   }
 `;
 
-const UserCardWrap = styled.ul`
+const TagWrap = styled.div`
   display: flex;
-  gap: 30px;
+  gap: 12px;
+  margin-bottom: 50px;
+`;
+
+const HotUserCardWrap = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+`;
+
+const NewUserCardWrap = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
 `;
