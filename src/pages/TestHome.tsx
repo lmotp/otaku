@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import MyTestCard from '../components/TestHome/MyTestCard';
 import MakeMyTestCard from '../components/TestHome/MakeMyTestCard';
 import Tag from '../components/TestHome/Tag';
+import PagiNation from '../components/PagiNation/PagiNation';
 
 const mokingHotUserItem = [
   { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
@@ -106,6 +107,8 @@ const TestHome = () => {
           );
         })}
       </NewUserCardWrap>
+
+      <PagiNation />
     </section>
   );
 };

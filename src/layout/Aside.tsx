@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as User } from '../assets/imgs/user.svg';
 import { ReactComponent as Heart } from '../assets/imgs/heart.svg';
@@ -40,17 +40,39 @@ const userClassMockingData = [
 ];
 
 const Aside = () => {
+  const [userProfileModalState, setUserProfileModalState] = useState<boolean>(false);
+  const [heartModalState, setHeartModalState] = useState<boolean>(false);
+  const [searchModalState, setSearchModalState] = useState<boolean>(false);
+
+  const onUserProfileModal = () => {
+    setUserProfileModalState(!userProfileModalState);
+    setHeartModalState(false);
+    setSearchModalState(false);
+  };
+  const onHeartModal = () => {
+    setHeartModalState(!heartModalState);
+    setUserProfileModalState(false);
+    setSearchModalState(false);
+  };
+  const onSearchModal = () => {
+    setSearchModalState(!searchModalState);
+    setUserProfileModalState(false);
+    setHeartModalState(false);
+  };
+
   return (
     <AisdeWrap>
-      <UserProfileModal userMockingData={userMockingData} userClassMockingData={userClassMockingData} />
-      <Button>
-        <UserIcon fill="#01f5bb" />
+      {userProfileModalState && (
+        <UserProfileModal userMockingData={userMockingData} userClassMockingData={userClassMockingData} />
+      )}
+      <Button onClick={onUserProfileModal} active={userProfileModalState}>
+        <UserIcon fill={userProfileModalState ? '#ffffff' : '#01f5bb'} />
       </Button>
-      <Button>
-        <HeartIcon fill="#01f5bb" />
+      <Button onClick={onHeartModal} active={heartModalState}>
+        <HeartIcon fill={heartModalState ? '#ffffff' : '#01f5bb'} />
       </Button>
-      <Button>
-        <SearchIcon fill="#01f5bb" />
+      <Button onClick={onSearchModal} active={searchModalState}>
+        <SearchIcon fill={searchModalState ? '#ffffff' : '#01f5bb'} />
       </Button>
     </AisdeWrap>
   );
@@ -65,7 +87,7 @@ const AisdeWrap = styled.aside`
   z-index: 1000;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,7 +95,7 @@ const Button = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: ${(props) => (props.active ? '#01f5bb' : '#ffffff')};
   transition: background-color 0.2s ease-in-out;
 
   &:last-child {
