@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as User } from '../assets/imgs/user.svg';
 import { ReactComponent as Heart } from '../assets/imgs/heart.svg';
 import { ReactComponent as Search } from '../assets/imgs/search.svg';
+import SearchInput from '../components/Aside/SearchInput';
 import UserProfileModal from '../components/Aside/UserProfileModal';
 import whee7 from '../assets/imgs/whee7.jfif';
 
@@ -71,6 +72,7 @@ const Aside = () => {
       <Button onClick={onHeartModal} active={heartModalState}>
         <HeartIcon fill={heartModalState ? '#ffffff' : '#01f5bb'} />
       </Button>
+      {searchModalState && <SearchInput />}
       <Button onClick={onSearchModal} active={searchModalState}>
         <SearchIcon fill={searchModalState ? '#ffffff' : '#01f5bb'} />
       </Button>
@@ -81,9 +83,9 @@ const Aside = () => {
 export default Aside;
 
 const AisdeWrap = styled.aside`
-  position: absolute;
+  position: fixed;
   top: 100px;
-  right: 50px;
+  right: 40px;
   z-index: 1000;
 `;
 
@@ -96,6 +98,8 @@ const Button = styled.button<{ active: boolean }>`
   height: 50px;
   border-radius: 50%;
   background-color: ${(props) => (props.active ? '#01f5bb' : '#ffffff')};
+  z-index: 1001;
+
   transition: background-color 0.2s ease-in-out;
 
   &:last-child {
@@ -109,6 +113,7 @@ const Button = styled.button<{ active: boolean }>`
 
 const HeartIcon = styled(Heart)`
   margin-top: 2px;
+
   cursor: pointer;
 
   transition: fill 0.2s ease-in-out;

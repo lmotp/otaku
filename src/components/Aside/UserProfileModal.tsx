@@ -24,7 +24,7 @@ const UserProfileModal = ({ userMockingData, userClassMockingData }: UserMocking
         <UserGroupButton>My Group &gt; </UserGroupButton>
         <UserClassWrap>
           {userClassMockingData.map((info) => {
-            return <UserClass thumbnail={info.thumbnail} />;
+            return <UserClass thumbnail={info.thumbnail} key={info.id} />;
           })}
         </UserClassWrap>
       </div>

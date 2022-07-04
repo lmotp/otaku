@@ -33,7 +33,7 @@ export default Header;
 
 const HeaderContainer = styled.header`
   margin-right: 120px;
-  padding-left: 100px;
+  padding-left: 80px;
   padding-top: 100px;
   height: 100vh;
 `;

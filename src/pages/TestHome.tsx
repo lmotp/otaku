@@ -173,5 +173,5 @@ const HotUserCardWrap = styled.ul`
 const NewUserCardWrap = styled.ul`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 `;
