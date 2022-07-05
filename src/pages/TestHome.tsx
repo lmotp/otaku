@@ -7,11 +7,11 @@ import whee5 from '../assets/imgs/whee5.jfif';
 import whee6 from '../assets/imgs/whee6.jfif';
 import whee7 from '../assets/imgs/whee7.jfif';
 import UserTestCard from '../components/TestHome/UserTestCard';
-import SubTitle from '../components/TestHome/SubTitle';
+import SubTitle from '../components/common/SubTitle';
 import styled from 'styled-components';
 import MyTestCard from '../components/TestHome/MyTestCard';
 import MakeMyTestCard from '../components/TestHome/MakeMyTestCard';
-import Tag from '../components/TestHome/Tag';
+import Tag from '../components/common/Tag';
 import PagiNation from '../components/PagiNation/PagiNation';
 
 const mokingHotUserItem = [
@@ -48,7 +48,7 @@ const TestHome = () => {
 
   return (
     <section>
-      <SubTitle title="내가 만든 테스트" />
+      <SubTitle title="내가 만든 테스트" marginBottom={20} />
       <MyCardWrap>
         {noneItemArray.map((_, index) => {
           return <MakeMyTestCard key={index} />;
@@ -72,7 +72,7 @@ const TestHome = () => {
         })}
       </TagWrap>
 
-      <SubTitle title="지금 인기있는 테스트" />
+      <SubTitle title="지금 인기있는 테스트" marginBottom={20} />
       <HotUserCardWrap>
         {mokingHotUserItem.map((info) => {
           return (
@@ -90,7 +90,7 @@ const TestHome = () => {
         })}
       </HotUserCardWrap>
 
-      <SubTitle title="지금 올라온 테스트" />
+      <SubTitle title="지금 올라온 테스트" marginBottom={20} />
       <NewUserCardWrap>
         {mokingNowUserItem.map((info) => {
           return (

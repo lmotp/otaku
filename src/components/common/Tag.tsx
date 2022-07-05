@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ITag } from '../../typings/TestHomeType';
+import { ITag } from '../../typings/Common';
 
 const Tag = ({ buttonTag, active, onChangeActiveButton }: ITag) => {
   return (

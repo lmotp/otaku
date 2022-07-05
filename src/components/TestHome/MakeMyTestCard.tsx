@@ -1,13 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const MakeMyTestCard = () => {
-  const test = () => {
-    console.log('test');
-  };
+  const navigate = useNavigate();
+
   return (
-    <MakeMyTestCardWrap>
-      <MakeMyTestButton onClick={test}></MakeMyTestButton>
+    <MakeMyTestCardWrap onClick={() => navigate('/test/make')}>
+      <MakeMyTestButton></MakeMyTestButton>
     </MakeMyTestCardWrap>
   );
 };

@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import logo from '../assets/imgs/logo.svg';
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
       <h1>
-        <Logo src={logo} />
+        <Logo src={logo} onClick={() => navigate('/')} />
       </h1>
       <nav>
         <ul>
@@ -32,7 +34,7 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.header`
-  margin-right: 120px;
+  margin-right: 140px;
   padding-left: 80px;
   padding-top: 100px;
   height: 100vh;
@@ -40,6 +42,7 @@ const HeaderContainer = styled.header`
 
 const Logo = styled.img`
   margin-bottom: 100px;
+  cursor: pointer;
 `;
 
 const TabList = styled.li`

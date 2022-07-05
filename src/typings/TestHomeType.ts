@@ -1,13 +1,3 @@
-export interface ITag {
-  buttonTag: string;
-  active: boolean;
-  onChangeActiveButton: (value: string) => void;
-}
-
-export interface ISubTitle {
-  title: string;
-}
-
 export interface IUserTestCard {
   id: number;
   src: string;
