@@ -44,6 +44,18 @@ const quizMocking = [
     ],
     answer: 2,
   },
+  {
+    id: 4,
+    question: '질문을 입력하세요',
+    examples: [
+      { id: 1, example: '답 1번의 예시입니다.' },
+      { id: 2, example: '답 2번의 예시입니다.' },
+      { id: 3, example: '답 3번의 예시입니다.' },
+      { id: 4, example: '답 4번의 예시입니다.' },
+      { id: 5, example: '답 5번의 예시입니다.' },
+    ],
+    answer: 2,
+  },
 ];
 
 const TestMake = () => {
@@ -116,8 +128,6 @@ const TagTitle = styled.div`
 `;
 
 const QuizContainer = styled.ul`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  column-width: 635px;
+  column-gap: 30px;
 `;

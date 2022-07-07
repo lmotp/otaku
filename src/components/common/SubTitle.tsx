@@ -11,6 +11,6 @@ export default SubTitle;
 const Title = styled.h2<{ marginBottom: number }>`
   margin-bottom: ${(props) => `${props.marginBottom}px`};
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 700;
   color: #01f5bb;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { DragEvent, useState } from 'react';
 import styled from 'styled-components';
 import { IQuizInfo } from '../../typings/TestMake';
 import { ReactComponent as MoveMenu } from '../../assets/imgs/move-menu.svg';
@@ -15,8 +15,22 @@ const MakeTestQuiz = ({ quizInfo }: QuizInfoProps) => {
     setQuizType(type);
   };
 
+  const onDragStart = (e: DragEvent<HTMLLIElement>) => {
+    const target = e.target as Element;
+
+    console.log(e.target.offsetHeight);
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setDragImage(target, 50000, 50000);
+
+    let ghostNode = target.cloneNode(true) as HTMLElement;
+
+    ghostNode.style.position = 'absoulte';
+    // ghostNode.style.top = e.pageX -  / 2 + 'px';
+  };
+
   return (
-    <QuizWrap>
+    <QuizWrap onDragStart={onDragStart} draggable={true}>
       <QuizTopWrap>
         <QuizTopWrapLeft>
           <Qusetion>Q1. {quizInfo.question}</Qusetion>
@@ -52,9 +66,9 @@ const MakeTestQuiz = ({ quizInfo }: QuizInfoProps) => {
 export default MakeTestQuiz;
 
 const QuizWrap = styled.li`
-  margin-bottom: 90px;
-  width: calc(50% - 15px);
-  height: auto;
+  display: inline-block;
+  padding-bottom: 90px;
+  width: 100%;
 `;
 
 const QuizTopWrap = styled.div`
