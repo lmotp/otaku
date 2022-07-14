@@ -1,74 +1,70 @@
-import React, { DragEvent, useState } from 'react';
+import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 import { IQuizInfo } from '../../typings/TestMake';
 import { ReactComponent as MoveMenu } from '../../assets/imgs/move-menu.svg';
 import { ReactComponent as Trash } from '../../assets/imgs/trash.svg';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface QuizInfoProps {
   quizInfo: IQuizInfo;
+  index: number;
+  id: any;
 }
 
-const MakeTestQuiz = ({ quizInfo }: QuizInfoProps) => {
+const MakeTestQuiz = ({ quizInfo, index, id }: QuizInfoProps) => {
   const [quizType, setQuizType] = useState<string>('A타입');
 
   const onQuizTypeChange = (type: string) => {
     setQuizType(type);
   };
 
-  const onDragStart = (e: DragEvent<HTMLLIElement>) => {
-    const target = e.target as Element;
-
-    console.log(e.target.offsetHeight);
-
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setDragImage(target, 50000, 50000);
-
-    let ghostNode = target.cloneNode(true) as HTMLElement;
-
-    ghostNode.style.position = 'absoulte';
-    // ghostNode.style.top = e.pageX -  / 2 + 'px';
-  };
-
   return (
-    <QuizWrap onDragStart={onDragStart} draggable={true}>
-      <QuizTopWrap>
-        <QuizTopWrapLeft>
-          <Qusetion>Q1. {quizInfo.question}</Qusetion>
-          <div>
-            <QuizType buttonType={quizType === 'A타입'} onClick={() => onQuizTypeChange('A타입')}>
-              A타입
-            </QuizType>
-            <QuizType buttonType={quizType === 'B타입'} onClick={() => onQuizTypeChange('B타입')}>
-              B타입
-            </QuizType>
-          </div>
-        </QuizTopWrapLeft>
-        <QuizTopWrapRight>
-          <IconMoveMenu />
-          <IconTrash />
-        </QuizTopWrapRight>
-      </QuizTopWrap>
-      <QuizEContents>
-        <QuizContentsButton />
-      </QuizEContents>
-      <QuizBottomWrap buttonType={quizType}>
-        {quizInfo.examples.map((item) => (
-          <QuizExampleWrap key={item.id} buttonType={quizType}>
-            <QuizExampleButton>{item.id}</QuizExampleButton>
-            <QuizExample>{item.example}</QuizExample>
-          </QuizExampleWrap>
-        ))}
-      </QuizBottomWrap>
-    </QuizWrap>
+    <Draggable draggableId={id} index={index}>
+      {(provided, snapshot) => (
+        <QuizWrap ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+          <QuizTopWrap>
+            <QuizTopWrapLeft>
+              <Qusetion>
+                Q{quizInfo.id}. {quizInfo.question}
+              </Qusetion>
+              <div>
+                <QuizType buttonType={quizType === 'A타입'} onClick={() => onQuizTypeChange('A타입')}>
+                  A타입
+                </QuizType>
+                <QuizType buttonType={quizType === 'B타입'} onClick={() => onQuizTypeChange('B타입')}>
+                  B타입
+                </QuizType>
+              </div>
+            </QuizTopWrapLeft>
+            <QuizTopWrapRight>
+              <IconMoveMenu />
+              <IconTrash />
+            </QuizTopWrapRight>
+          </QuizTopWrap>
+          <QuizEContents>
+            <QuizContentsButton />
+          </QuizEContents>
+          <QuizBottomWrap buttonType={quizType}>
+            {quizInfo.examples.map((item) => (
+              <QuizExampleWrap key={item.id} buttonType={quizType}>
+                <QuizExampleButton>{item.id}</QuizExampleButton>
+                <QuizExample>{item.example}</QuizExample>
+              </QuizExampleWrap>
+            ))}
+          </QuizBottomWrap>
+        </QuizWrap>
+      )}
+    </Draggable>
   );
 };
 
-export default MakeTestQuiz;
+export default memo(MakeTestQuiz);
 
 const QuizWrap = styled.li`
   display: inline-block;
   padding-bottom: 90px;
   width: 100%;
+  background-color: #ffffff;
 `;
 
 const QuizTopWrap = styled.div`

@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import SubTitle from '../components/common/SubTitle';
 import Tag from '../components/common/Tag';
@@ -12,17 +13,17 @@ const quizMocking = [
     id: 1,
     question: '질문을 입력하세요',
     examples: [
-      { id: 1, example: '답 1번의 예시입니다.' },
-      { id: 2, example: '답 2번의 예시입니다.' },
-      { id: 3, example: '답 3번의 예시입니다.' },
-      { id: 4, example: '답 4번의 예시입니다.' },
-      { id: 5, example: '답 5번의 예시입니다.' },
+      { id: 1, example: '답 1231번의 예시입니다.' },
+      { id: 2, example: '답 1232번의 예시입니다.' },
+      { id: 3, example: '답 3123번의 예시입니다.' },
+      { id: 4, example: '답 1234번의 예시입니다.' },
+      { id: 5, example: '답 5123번의 예시입니다.' },
     ],
     answer: 2,
   },
   {
     id: 2,
-    question: '질문을 입력하세요',
+    question: '질문을 입력하세요2',
     examples: [
       { id: 1, example: '답 1번의 예시입니다.' },
       { id: 2, example: '답 2번의 예시입니다.' },
@@ -34,7 +35,7 @@ const quizMocking = [
   },
   {
     id: 3,
-    question: '질문을 입력하세요',
+    question: '질문을 입력하세요3',
     examples: [
       { id: 1, example: '답 1번의 예시입니다.' },
       { id: 2, example: '답 2번의 예시입니다.' },
@@ -46,7 +47,7 @@ const quizMocking = [
   },
   {
     id: 4,
-    question: '질문을 입력하세요',
+    question: '질문을 입력하세요4',
     examples: [
       { id: 1, example: '답 1번의 예시입니다.' },
       { id: 2, example: '답 2번의 예시입니다.' },
@@ -62,6 +63,7 @@ const TestMake = () => {
   const [actvieButton, setActiveButton] = useState<string>('');
   const [testTitle, setTextTitle] = useState<string>('');
   const [testContent, setTextContent] = useState<string>('');
+  const [testQuizList, setQuizTestList] = useState(quizMocking);
 
   const onChangeActiveButton = (value: string) => {
     setActiveButton(value);
@@ -72,6 +74,17 @@ const TestMake = () => {
   };
   const onchangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextContent(e.target.value);
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+    if (!destination) return;
+
+    const items = Array.from(quizMocking);
+    const [newOrder] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, newOrder);
+
+    setQuizTestList(items);
   };
 
   return (
@@ -96,11 +109,17 @@ const TestMake = () => {
         })}
       </TagWrap>
 
-      <QuizContainer>
-        {quizMocking.map((info) => {
-          return <MakeTestQuiz quizInfo={info} key={info.id} />;
-        })}
-      </QuizContainer>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="testQuizList">
+          {(provided) => (
+            <QuizContainer {...provided.droppableProps} ref={provided.innerRef}>
+              {testQuizList.map((info, index) => {
+                return <MakeTestQuiz key={info.id} quizInfo={info} index={index} id={String(info.id)} />;
+              })}
+            </QuizContainer>
+          )}
+        </Droppable>
+      </DragDropContext>
     </section>
   );
 };
