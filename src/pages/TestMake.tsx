@@ -1,5 +1,14 @@
+import {
+  closestCenter,
+  DndContext,
+  DragOverlay,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import { arrayMove, rectSortingStrategy, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import React, { ChangeEvent, useState } from 'react';
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import SubTitle from '../components/common/SubTitle';
 import Tag from '../components/common/Tag';
@@ -64,6 +73,7 @@ const TestMake = () => {
   const [testTitle, setTextTitle] = useState<string>('');
   const [testContent, setTextContent] = useState<string>('');
   const [testQuizList, setQuizTestList] = useState(quizMocking);
+  const [activeId, setActiveId] = useState(null);
 
   const onChangeActiveButton = (value: string) => {
     setActiveButton(value);
@@ -76,15 +86,31 @@ const TestMake = () => {
     setTextContent(e.target.value);
   };
 
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
-    if (!destination) return;
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
-    const items = Array.from(quizMocking);
-    const [newOrder] = items.splice(source.index, 1);
-    items.splice(destination.index, 0, newOrder);
+  const handleDragStart = (event: any) => {
+    setActiveId(event.active.id);
+  };
 
-    setQuizTestList(items);
+  const handleDragEnd = (event: any) => {
+    setActiveId(null);
+    const { active, over } = event;
+
+    console.log(event);
+
+    if (active.id !== over.id) {
+      setQuizTestList((items) => {
+        const oldIndex = items.map((info) => info.id).indexOf(active.id);
+        const newIndex = items.map((info) => info.id).indexOf(over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
   };
 
   return (
@@ -108,18 +134,31 @@ const TestMake = () => {
           );
         })}
       </TagWrap>
-
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="testQuizList">
-          {(provided) => (
-            <QuizContainer {...provided.droppableProps} ref={provided.innerRef}>
-              {testQuizList.map((info, index) => {
-                return <MakeTestQuiz key={info.id} quizInfo={info} index={index} id={String(info.id)} />;
-              })}
-            </QuizContainer>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
+      >
+        <QuizContainer>
+          <SortableContext items={testQuizList} strategy={rectSortingStrategy}>
+            {testQuizList.map((info, index) => {
+              return <MakeTestQuiz key={index} quizInfo={info} index={index} handle={true} id={info.id} />;
+            })}
+            <DragOverlay>
+              {activeId ? (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100px',
+                    backgroundColor: 'red',
+                  }}
+                ></div>
+              ) : null}
+            </DragOverlay>
+          </SortableContext>
+        </QuizContainer>
+      </DndContext>
     </section>
   );
 };
