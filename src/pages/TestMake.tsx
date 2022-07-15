@@ -73,7 +73,6 @@ const TestMake = () => {
   const [testTitle, setTextTitle] = useState<string>('');
   const [testContent, setTextContent] = useState<string>('');
   const [testQuizList, setQuizTestList] = useState(quizMocking);
-  const [activeId, setActiveId] = useState(null);
 
   const onChangeActiveButton = (value: string) => {
     setActiveButton(value);
@@ -93,20 +92,13 @@ const TestMake = () => {
     }),
   );
 
-  const handleDragStart = (event: any) => {
-    setActiveId(event.active.id);
-  };
-
   const handleDragEnd = (event: any) => {
-    setActiveId(null);
     const { active, over } = event;
-
-    console.log(event);
 
     if (active.id !== over.id) {
       setQuizTestList((items) => {
-        const oldIndex = items.map((info) => info.id).indexOf(active.id);
-        const newIndex = items.map((info) => info.id).indexOf(over.id);
+        const oldIndex = items.findIndex(({ id }) => id === active.id);
+        const newIndex = items.findIndex(({ id }) => id === over.id);
 
         return arrayMove(items, oldIndex, newIndex);
       });
@@ -134,28 +126,12 @@ const TestMake = () => {
           );
         })}
       </TagWrap>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-        onDragStart={handleDragStart}
-      >
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <QuizContainer>
-          <SortableContext items={testQuizList} strategy={rectSortingStrategy}>
+          <SortableContext items={testQuizList.map((info) => info.id)} strategy={rectSortingStrategy}>
             {testQuizList.map((info, index) => {
               return <MakeTestQuiz key={index} quizInfo={info} index={index} handle={true} id={info.id} />;
             })}
-            <DragOverlay>
-              {activeId ? (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100px',
-                    backgroundColor: 'red',
-                  }}
-                ></div>
-              ) : null}
-            </DragOverlay>
           </SortableContext>
         </QuizContainer>
       </DndContext>

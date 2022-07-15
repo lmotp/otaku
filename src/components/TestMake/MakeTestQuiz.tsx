@@ -24,10 +24,10 @@ const MakeTestQuiz = ({ quizInfo, index, id }: QuizInfoProps) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    width: '100%',
-    backgroundColor: '#fffffff',
-    paddingBottom: '90px',
     display: 'inline-block',
+    width: '100%',
+    backgroundColor: '#ffffff',
+    paddingBottom: '90px',
     zIndex: isDragging ? '100' : 'auto',
     opacity: isDragging ? 0.3 : 1,
   };
