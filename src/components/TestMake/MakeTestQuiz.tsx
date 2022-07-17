@@ -25,7 +25,7 @@ const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
     transform: CSS.Transform.toString(transform),
     transition,
     display: 'inline-block',
-    width: '50%',
+    width: '100%',
     backgroundColor: '#ffffff',
     paddingBottom: '90px',
     zIndex: isDragging ? '100' : 'auto',
