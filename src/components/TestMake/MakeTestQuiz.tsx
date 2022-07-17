@@ -13,7 +13,7 @@ interface QuizInfoProps {
   handle: boolean;
 }
 
-const MakeTestQuiz = ({ quizInfo, index, id }: QuizInfoProps) => {
+const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
   const [quizType, setQuizType] = useState<string>('A타입');
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
@@ -25,7 +25,7 @@ const MakeTestQuiz = ({ quizInfo, index, id }: QuizInfoProps) => {
     transform: CSS.Transform.toString(transform),
     transition,
     display: 'inline-block',
-    width: '100%',
+    width: '50%',
     backgroundColor: '#ffffff',
     paddingBottom: '90px',
     zIndex: isDragging ? '100' : 'auto',

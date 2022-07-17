@@ -1,12 +1,4 @@
-import {
-  closestCenter,
-  DndContext,
-  DragOverlay,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, rectSortingStrategy, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
@@ -129,8 +121,8 @@ const TestMake = () => {
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <QuizContainer>
           <SortableContext items={testQuizList.map((info) => info.id)} strategy={rectSortingStrategy}>
-            {testQuizList.map((info, index) => {
-              return <MakeTestQuiz key={index} quizInfo={info} index={index} handle={true} id={info.id} />;
+            {testQuizList.map((info) => {
+              return <MakeTestQuiz key={info.id} quizInfo={info} index={info.id} handle={true} id={info.id} />;
             })}
           </SortableContext>
         </QuizContainer>
