@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { KeyboardEvent, memo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IQuizInfo } from '../../typings/TestMake';
 import { ReactComponent as MoveMenu } from '../../assets/imgs/move-menu.svg';
@@ -15,10 +15,27 @@ interface QuizInfoProps {
 
 const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
   const [quizType, setQuizType] = useState<string>('A타입');
+  const [addContentState, setAddContentState] = useState<boolean>(false);
+  const textAreaRef = useRef<any>(null);
+
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
   const onQuizTypeChange = (type: string) => {
     setQuizType(type);
+  };
+
+  const autoResizeTextarea = (e: any) => {
+    const textAreaHeight = e.target.scrollHeight + 2; // +2는 높이값을 맞추기 위해 추가 (뭔가 애매함)
+    console.log(e);
+
+    if (textAreaRef.current && e.keyCode === 13 && textAreaHeight > 138) {
+      console.log(textAreaHeight);
+      textAreaRef.current.style.height = `${textAreaHeight + 8}px`;
+    }
+  };
+
+  const onAddQuizContent = () => {
+    setAddContentState(true);
   };
 
   const style = {
@@ -53,9 +70,17 @@ const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
           <IconTrash />
         </QuizTopWrapRight>
       </QuizTopWrap>
-      <QuizEContents>
-        <QuizContentsButton />
-      </QuizEContents>
+      {addContentState ? (
+        <QuizContentsTextArea
+          ref={textAreaRef}
+          placeholder="문제의 보기를 입력해주세요!"
+          onKeyDown={autoResizeTextarea}
+        />
+      ) : (
+        <QuizEContents>
+          <QuizContentsButton onClick={onAddQuizContent} />
+        </QuizEContents>
+      )}
       <QuizBottomWrap buttonType={quizType}>
         {quizInfo.examples.map((item) => (
           <QuizExampleWrap key={item.id} buttonType={quizType}>
@@ -131,7 +156,18 @@ const QuizEContents = styled.div`
   min-height: 140px;
   border: 1px dashed #304674;
   border-radius: 8px;
-  cursor: pointer;
+`;
+
+const QuizContentsTextArea = styled.textarea`
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 138px; // border 1px 뺀거긴한데. 왜 box-sizing에서 안빠지는지 의문.
+  outline: none;
+  resize: none;
+  border-radius: 8px;
+  border: 1px dashed #304674;
 `;
 
 const QuizContentsButton = styled.button`
