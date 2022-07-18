@@ -70,6 +70,7 @@ const TestMake = () => {
     setActiveButton(value);
   };
 
+  // 제목, 설명문 onChange 값
   const onchangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTextTitle(e.target.value);
   };
@@ -77,6 +78,7 @@ const TestMake = () => {
     setTextContent(e.target.value);
   };
 
+  // 메뉴 드래그 앤 드랍 함수
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -94,6 +96,19 @@ const TestMake = () => {
 
         return arrayMove(items, oldIndex, newIndex);
       });
+    }
+  };
+
+  // 메뉴 삭제 함수
+  const onDeletQuizItem = (itemId: number) => {
+    const confirmState = window.confirm('삭제하시겠습니까?');
+
+    if (confirmState) {
+      setQuizTestList(
+        testQuizList.filter((info) => {
+          return info.id !== itemId;
+        }),
+      );
     }
   };
 
@@ -122,7 +137,16 @@ const TestMake = () => {
         <QuizContainer>
           <SortableContext items={testQuizList.map((info) => info.id)} strategy={rectSortingStrategy}>
             {testQuizList.map((info) => {
-              return <MakeTestQuiz key={info.id} quizInfo={info} index={info.id} handle={true} id={info.id} />;
+              return (
+                <MakeTestQuiz
+                  key={info.id}
+                  quizInfo={info}
+                  index={info.id}
+                  handle={true}
+                  id={info.id}
+                  onDeletQuizItem={onDeletQuizItem}
+                />
+              );
             })}
           </SortableContext>
         </QuizContainer>
@@ -154,6 +178,8 @@ const TagTitle = styled.div`
 `;
 
 const QuizContainer = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   column-width: 635px;
-  column-gap: 30px;
 `;

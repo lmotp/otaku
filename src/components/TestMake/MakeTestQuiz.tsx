@@ -8,12 +8,13 @@ import { CSS } from '@dnd-kit/utilities';
 
 interface QuizInfoProps {
   quizInfo: IQuizInfo;
+  onDeletQuizItem: (itemId: number) => void;
   index: number;
   id: number;
   handle: boolean;
 }
 
-const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
+const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem }: QuizInfoProps) => {
   const [quizType, setQuizType] = useState<string>('A타입');
   const [addContentState, setAddContentState] = useState<boolean>(false);
   const textAreaRef = useRef<any>(null);
@@ -33,13 +34,11 @@ const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
     setAddContentState(true);
   };
 
-  const onDeletQuizItem = () => {};
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     display: 'inline-block',
-    width: '100%',
+    width: '48%',
     backgroundColor: '#ffffff',
     paddingBottom: '90px',
     zIndex: isDragging ? '100' : 'auto',
@@ -64,7 +63,7 @@ const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
         </QuizTopWrapLeft>
         <QuizTopWrapRight>
           <IconMoveMenu {...listeners} {...attributes} />
-          <IconTrash onClick={onDeletQuizItem} />
+          <IconTrash onClick={() => onDeletQuizItem(id)} />
         </QuizTopWrapRight>
       </QuizTopWrap>
       {addContentState ? (
