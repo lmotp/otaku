@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, memo, useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IQuizInfo } from '../../typings/TestMake';
 import { ReactComponent as MoveMenu } from '../../assets/imgs/move-menu.svg';
@@ -24,19 +24,16 @@ const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
     setQuizType(type);
   };
 
-  const autoResizeTextarea = (e: any) => {
-    const textAreaHeight = e.target.scrollHeight + 2; // +2는 높이값을 맞추기 위해 추가 (뭔가 애매함)
-    console.log(e);
-
-    if (textAreaRef.current && e.keyCode === 13 && textAreaHeight > 138) {
-      console.log(textAreaHeight);
-      textAreaRef.current.style.height = `${textAreaHeight + 8}px`;
-    }
+  const autoResizeTextarea = () => {
+    textAreaRef.current.style.height = 'auto';
+    textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
   };
 
   const onAddQuizContent = () => {
     setAddContentState(true);
   };
+
+  const onDeletQuizItem = () => {};
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -67,19 +64,21 @@ const MakeTestQuiz = ({ quizInfo, id }: QuizInfoProps) => {
         </QuizTopWrapLeft>
         <QuizTopWrapRight>
           <IconMoveMenu {...listeners} {...attributes} />
-          <IconTrash />
+          <IconTrash onClick={onDeletQuizItem} />
         </QuizTopWrapRight>
       </QuizTopWrap>
       {addContentState ? (
-        <QuizContentsTextArea
-          ref={textAreaRef}
-          placeholder="문제의 보기를 입력해주세요!"
-          onKeyDown={autoResizeTextarea}
-        />
+        <QuizTextAreaWrap>
+          <QuizContentsTextArea
+            ref={textAreaRef}
+            placeholder="문제의 보기를 입력해주세요!"
+            onChange={autoResizeTextarea}
+          />
+        </QuizTextAreaWrap>
       ) : (
-        <QuizEContents>
+        <QuizContents>
           <QuizContentsButton onClick={onAddQuizContent} />
-        </QuizEContents>
+        </QuizContents>
       )}
       <QuizBottomWrap buttonType={quizType}>
         {quizInfo.examples.map((item) => (
@@ -147,27 +146,36 @@ const IconTrash = styled(Trash)`
   cursor: pointer;
 `;
 
-const QuizEContents = styled.div`
+const QuizTextAreaWrap = styled.div`
+  box-sizing: border-box;
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px dashed #304674;
+`;
+
+const QuizContentsTextArea = styled.textarea`
+  display: block; // textarea는 chrome에서 마진 2값이 존재함 그래서 block으로 처리해줘야 함
+  box-sizing: border-box;
+  line-height: 1.5;
+  padding: 0;
+  width: 100%;
+  outline: none;
+  resize: none;
+  border: none;
+  overflow-y: hidden;
+`;
+
+const QuizContents = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  padding: 20px 10px;
   width: 100%;
-  min-height: 140px;
   border: 1px dashed #304674;
   border-radius: 8px;
-`;
-
-const QuizContentsTextArea = styled.textarea`
-  box-sizing: border-box;
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  height: 138px; // border 1px 뺀거긴한데. 왜 box-sizing에서 안빠지는지 의문.
-  outline: none;
-  resize: none;
-  border-radius: 8px;
-  border: 1px dashed #304674;
 `;
 
 const QuizContentsButton = styled.button`
