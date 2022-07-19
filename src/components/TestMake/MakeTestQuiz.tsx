@@ -9,12 +9,13 @@ import { CSS } from '@dnd-kit/utilities';
 interface QuizInfoProps {
   quizInfo: IQuizInfo;
   onDeletQuizItem: (itemId: number) => void;
+  cardIndex: number;
   index: number;
   id: number;
   handle: boolean;
 }
 
-const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem }: QuizInfoProps) => {
+const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem, cardIndex }: QuizInfoProps) => {
   const [quizType, setQuizType] = useState<string>('A타입');
   const [addContentState, setAddContentState] = useState<boolean>(false);
   const textAreaRef = useRef<any>(null);
@@ -40,7 +41,7 @@ const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem }: QuizInfoProps) => {
     display: 'inline-block',
     width: '48%',
     backgroundColor: '#ffffff',
-    paddingBottom: '90px',
+    marginBottom: '90px',
     zIndex: isDragging ? '100' : 'auto',
     opacity: isDragging ? 0.3 : 1,
   };
@@ -50,7 +51,7 @@ const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem }: QuizInfoProps) => {
       <QuizTopWrap>
         <QuizTopWrapLeft>
           <Qusetion>
-            Q{quizInfo.id}. {quizInfo.question}
+            Q{cardIndex}. {quizInfo.question}
           </Qusetion>
           <div>
             <QuizType buttonType={quizType === 'A타입'} onClick={() => onQuizTypeChange('A타입')}>

@@ -1,10 +1,11 @@
 import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, rectSortingStrategy, SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 import SubTitle from '../components/common/SubTitle';
 import Tag from '../components/common/Tag';
 import MakeTestContent from '../components/TestMake/MakeTestContent';
+import MakeTestNewQuiz from '../components/TestMake/MakeTestNewQuiz';
 import MakeTestQuiz from '../components/TestMake/MakeTestQuiz';
 import MakeTestTitle from '../components/TestMake/MakeTestTitle';
 
@@ -65,6 +66,7 @@ const TestMake = () => {
   const [testTitle, setTextTitle] = useState<string>('');
   const [testContent, setTextContent] = useState<string>('');
   const [testQuizList, setQuizTestList] = useState(quizMocking);
+  const containerRef = useRef<any>(null);
 
   const onChangeActiveButton = (value: string) => {
     setActiveButton(value);
@@ -112,6 +114,26 @@ const TestMake = () => {
     }
   };
 
+  // 메뉴 추가 함수
+  const onAddQuizItem = () => {
+    const newQuizItem = {
+      id: testQuizList.length + 1,
+      question: '질문을 입력하세요4',
+      examples: [
+        { id: 1, example: '답 1번의 예시입니다.' },
+        { id: 2, example: '답 2번의 예시입니다.' },
+        { id: 3, example: '답 3번의 예시입니다.' },
+        { id: 4, example: '답 4번의 예시입니다.' },
+        { id: 5, example: '답 5번의 예시입니다.' },
+      ],
+      answer: 2,
+    };
+
+    containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' }); //살짝 보이게끔 추가작업이 필요
+
+    setQuizTestList([...testQuizList, newQuizItem]);
+  };
+
   return (
     <section>
       <SubTitle title="테스트 만들기" marginBottom={30} />
@@ -134,14 +156,15 @@ const TestMake = () => {
         })}
       </TagWrap>
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <QuizContainer>
+        <QuizContainer ref={containerRef}>
           <SortableContext items={testQuizList.map((info) => info.id)} strategy={rectSortingStrategy}>
-            {testQuizList.map((info) => {
+            {testQuizList.map((info, index) => {
               return (
                 <MakeTestQuiz
                   key={info.id}
                   quizInfo={info}
                   index={info.id}
+                  cardIndex={index + 1}
                   handle={true}
                   id={info.id}
                   onDeletQuizItem={onDeletQuizItem}
@@ -149,6 +172,7 @@ const TestMake = () => {
               );
             })}
           </SortableContext>
+          {testQuizList.length < 10 && <MakeTestNewQuiz onAddQuizItem={onAddQuizItem} />}
         </QuizContainer>
       </DndContext>
     </section>
