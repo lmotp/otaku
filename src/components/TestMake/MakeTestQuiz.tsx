@@ -27,7 +27,7 @@ const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem, cardIndex }: QuizInfoProp
   };
 
   const autoResizeTextarea = () => {
-    textAreaRef.current.style.height = 'auto';
+    textAreaRef.current.style.height = '60px';
     textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
   };
 
@@ -148,9 +148,10 @@ const IconTrash = styled(Trash)`
 
 const QuizTextAreaWrap = styled.div`
   box-sizing: border-box;
-  padding: 20px 10px;
+  padding: 10px;
   margin-bottom: 20px;
   width: 100%;
+
   border-radius: 8px;
   border: 1px dashed #304674;
 `;
@@ -161,6 +162,7 @@ const QuizContentsTextArea = styled.textarea`
   line-height: 1.5;
   padding: 0;
   width: 100%;
+  height: 60px;
   outline: none;
   resize: none;
   border: none;

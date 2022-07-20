@@ -8,6 +8,7 @@ import MakeTestContent from '../components/TestMake/MakeTestContent';
 import MakeTestNewQuiz from '../components/TestMake/MakeTestNewQuiz';
 import MakeTestQuiz from '../components/TestMake/MakeTestQuiz';
 import MakeTestTitle from '../components/TestMake/MakeTestTitle';
+import MakteTestSaveButton from '../components/TestMake/MakteTestSaveButton';
 
 const buttonTag = ['남자아이돌', '여자아이돌', '솔로가수', '배우', '작가', '기타'];
 const quizMocking = [
@@ -136,7 +137,10 @@ const TestMake = () => {
 
   return (
     <section>
-      <SubTitle title="테스트 만들기" marginBottom={30} />
+      <TestMakeHeader>
+        <SubTitle title="테스트 만들기" marginBottom={30} />
+        {testQuizList.length >= 5 && <MakteTestSaveButton />}
+      </TestMakeHeader>
       <MakeTestTitle testInfoValue={testTitle} onchangeInfoValue={onchangeTitle} />
       <MakeTestContent testInfoValue={testContent} onchangeInfoValue={onchangeContent} />
 
@@ -181,10 +185,16 @@ const TestMake = () => {
 
 export default TestMake;
 
+const TestMakeHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const TagWrap = styled.div`
   display: flex;
   gap: 12px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 `;
 
 const TagTitle = styled.div`
