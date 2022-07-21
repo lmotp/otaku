@@ -5,8 +5,8 @@ import { ReactComponent as Heart } from '../assets/imgs/heart.svg';
 import { ReactComponent as Search } from '../assets/imgs/search.svg';
 import SearchInput from '../components/Aside/SearchInput';
 import UserProfileModal from '../components/Aside/UserProfileModal';
-import whee7 from '../assets/imgs/whee7.jfif';
 
+import whee7 from '../assets/imgs/whee7.jfif';
 import whee9 from '../assets/imgs/whee9.jfif';
 import whee10 from '../assets/imgs/whee10.jpeg';
 import whee11 from '../assets/imgs/whee11.jfif';

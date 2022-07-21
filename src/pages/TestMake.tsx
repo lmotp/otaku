@@ -8,6 +8,7 @@ import MakeTestContent from '../components/TestMake/MakeTestContent';
 import MakeTestNewQuiz from '../components/TestMake/MakeTestNewQuiz';
 import MakeTestQuiz from '../components/TestMake/MakeTestQuiz';
 import MakeTestTitle from '../components/TestMake/MakeTestTitle';
+import MakeTestTopButton from '../components/TestMake/MakeTestTopButton';
 import MakteTestSaveButton from '../components/TestMake/MakteTestSaveButton';
 
 const buttonTag = ['남자아이돌', '여자아이돌', '솔로가수', '배우', '작가', '기타'];
@@ -136,50 +137,55 @@ const TestMake = () => {
   };
 
   return (
-    <section>
-      <TestMakeHeader>
-        <SubTitle title="테스트 만들기" marginBottom={30} />
-        {testQuizList.length >= 5 && <MakteTestSaveButton />}
-      </TestMakeHeader>
-      <MakeTestTitle testInfoValue={testTitle} onchangeInfoValue={onchangeTitle} />
-      <MakeTestContent testInfoValue={testContent} onchangeInfoValue={onchangeContent} />
+    <>
+      <section>
+        <TestMakeHeader>
+          <SubTitle title="테스트 만들기" marginBottom={30} />
+          {testQuizList.length >= 5 && <MakteTestSaveButton />}
+        </TestMakeHeader>
+        <MakeTestTitle testInfoValue={testTitle} onchangeInfoValue={onchangeTitle} />
+        <MakeTestContent testInfoValue={testContent} onchangeInfoValue={onchangeContent} />
 
-      <TagTitle>
-        카테고리 <span> * 만드실 테스트의 카테고리를 선택해주세요.</span>
-      </TagTitle>
-      <TagWrap>
-        {buttonTag.map((tag, index) => {
-          return (
-            <Tag
-              key={index}
-              buttonTag={tag}
-              active={actvieButton === tag}
-              onChangeActiveButton={onChangeActiveButton}
-            />
-          );
-        })}
-      </TagWrap>
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <QuizContainer ref={containerRef}>
-          <SortableContext items={testQuizList.map((info) => info.id)} strategy={rectSortingStrategy}>
-            {testQuizList.map((info, index) => {
-              return (
-                <MakeTestQuiz
-                  key={info.id}
-                  quizInfo={info}
-                  index={info.id}
-                  cardIndex={index + 1}
-                  handle={true}
-                  id={info.id}
-                  onDeletQuizItem={onDeletQuizItem}
-                />
-              );
-            })}
-          </SortableContext>
-          {testQuizList.length < 10 && <MakeTestNewQuiz onAddQuizItem={onAddQuizItem} />}
-        </QuizContainer>
-      </DndContext>
-    </section>
+        <TagTitle>
+          카테고리 <span> * 만드실 테스트의 카테고리를 선택해주세요.</span>
+        </TagTitle>
+        <TagWrap>
+          {buttonTag.map((tag, index) => {
+            return (
+              <Tag
+                key={index}
+                buttonTag={tag}
+                active={actvieButton === tag}
+                onChangeActiveButton={onChangeActiveButton}
+              />
+            );
+          })}
+        </TagWrap>
+
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <QuizContainer ref={containerRef}>
+            <SortableContext items={testQuizList.map((info) => info.id)} strategy={rectSortingStrategy}>
+              {testQuizList.map((info, index) => {
+                return (
+                  <MakeTestQuiz
+                    key={info.id}
+                    quizInfo={info}
+                    index={info.id}
+                    cardIndex={index + 1}
+                    handle={true}
+                    id={info.id}
+                    onDeletQuizItem={onDeletQuizItem}
+                  />
+                );
+              })}
+            </SortableContext>
+            {testQuizList.length < 10 && <MakeTestNewQuiz onAddQuizItem={onAddQuizItem} />}
+          </QuizContainer>
+        </DndContext>
+      </section>
+
+      {testQuizList.length >= 5 && <MakeTestTopButton />}
+    </>
   );
 };
 
