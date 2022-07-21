@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import Modal from '../common/Modal';
 import UserTestCard from '../TestHome/UserTestCard';
 import { ReactComponent as Waring } from '../../assets/imgs/Waring.svg';
@@ -8,14 +8,29 @@ import whee1 from '../../assets/imgs/whee1.jfif';
 
 const mokingHotUserItem = { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' };
 
+interface modifyModalStyle {
+  modifycolorState?: boolean;
+  modifyThumbnailState?: boolean;
+}
+
 const MakteTestSaveButton = () => {
   const [hoverState, setHoverState] = useState(false);
   const [modalState, setModalState] = useState(false);
+  const [modifyThumbnailState, setModifyThumbnailState] = useState(false);
+  const [modifycolorState, setModifyColorState] = useState(false);
 
   const onCloseModal = (e: any) => {
     if (e.target.classList.contains('modal')) {
       setModalState(false);
     }
+  };
+
+  const onModifyThumbnailModal = () => {
+    setModifyThumbnailState(true);
+  };
+
+  const onModifyColorModal = () => {
+    setModifyColorState(true);
   };
 
   return (
@@ -44,6 +59,10 @@ const MakteTestSaveButton = () => {
           titleSize="1.5rem"
           buttonStyleProps={{ buttonSize: '16px', width: '154px', height: '44px' }}
         />
+        <div>
+          <ModalCardModifyButton modifycolorState={modifycolorState} onClick={onModifyColorModal} />
+          <ModalCardModifyButton modifyThumbnailState={modifyThumbnailState} onClick={onModifyThumbnailModal} />
+        </div>
         <ModalButtonWrap>
           <ModalButton>저장</ModalButton>
           <ModalButton onClick={onCloseModal}>닫기</ModalButton>
@@ -62,7 +81,36 @@ const waveMove = keyframes`
   100% {
     transform: translate(5px, -15px);
   }
+`;
 
+const modifyThumbnailModalOpen = keyframes`
+  0% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+  
+  100% {
+    width: 150px;
+    height: 150px;
+    border-radius: 6px;
+    transform: translate(240px, -60px);
+  }
+`;
+
+const modifyColorModalOpen = keyframes`
+  0% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
+  100% {
+    width: 150px;
+    height: 150px;
+    border-radius: 6px;
+    transform: translate(-240px, 60px);
+  }
 `;
 
 const ButtonShadow = styled.div<{ hoverState: boolean }>`
@@ -120,10 +168,47 @@ const ModalStrong = styled.strong`
   margin-bottom: 21px;
 `;
 
+const ModalCardModifyButton = styled.button<modifyModalStyle>`
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #01f5bb;
+  transform-origin: center center;
+
+  &:first-child {
+    bottom: 140px;
+    left: 50px;
+
+    ${(props) =>
+      props.modifycolorState &&
+      css`
+        display: flex;
+        align-items: center;
+        animation: ${modifyColorModalOpen} 4s ease-in-out 1 both;
+      `}
+  }
+
+  &:last-child {
+    top: 140px;
+    right: 50px;
+
+    ${(props) =>
+      props.modifyThumbnailState &&
+      css`
+        display: flex;
+        align-items: center;
+        animation: ${modifyThumbnailModalOpen} 4s ease-in-out 1 both;
+      `}
+  }
+`;
+
 const ModalButtonWrap = styled.div`
   width: 100%;
   margin-top: 80px;
   background-color: black;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
 `;
 
 const ModalButton = styled.button`

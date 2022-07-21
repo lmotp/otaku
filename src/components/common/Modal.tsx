@@ -63,7 +63,6 @@ const ModalContent = styled.div<{ width: string }>`
   border-radius: 14px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
-  overflow: hidden;
 
   animation: ${ModalShow} 0.3s;
 `;
