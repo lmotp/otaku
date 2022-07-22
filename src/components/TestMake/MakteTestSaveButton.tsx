@@ -18,19 +18,29 @@ const MakteTestSaveButton = () => {
   const [modalState, setModalState] = useState(false);
   const [modifyThumbnailState, setModifyThumbnailState] = useState(false);
   const [modifycolorState, setModifyColorState] = useState(false);
+  const [colorDisabled, setColorDisabled] = useState(false);
+  const [thumbnailDisabled, setThumbnailDisabled] = useState(false);
 
   const onCloseModal = (e: any) => {
-    if (e.target.classList.contains('modal')) {
-      setModalState(false);
-    }
+    setModalState(false);
+    setModifyColorState(false);
+    setModifyThumbnailState(false);
   };
 
   const onModifyThumbnailModal = () => {
-    setModifyThumbnailState(true);
+    setThumbnailDisabled(true);
+    setModifyThumbnailState(!modifyThumbnailState);
+    setTimeout(() => {
+      setThumbnailDisabled(false);
+    }, 2000);
   };
 
   const onModifyColorModal = () => {
-    setModifyColorState(true);
+    setColorDisabled(true);
+    setModifyColorState(!modifycolorState);
+    setTimeout(() => {
+      setColorDisabled(false);
+    }, 2000);
   };
 
   return (
@@ -47,7 +57,7 @@ const MakteTestSaveButton = () => {
         </ButtonWrap>
       </ButtonShadow>
 
-      <Modal width="600px" modalState={modalState} onCloseModal={onCloseModal}>
+      <Modal width="600px" modalState={modalState}>
         <WaringIcon />
         <ModalStrong>썸네일을 등록하세요 !</ModalStrong>
         <UserTestCard
@@ -60,8 +70,16 @@ const MakteTestSaveButton = () => {
           buttonStyleProps={{ buttonSize: '16px', width: '154px', height: '44px' }}
         />
         <div>
-          <ModalCardModifyButton modifycolorState={modifycolorState} onClick={onModifyColorModal} />
-          <ModalCardModifyButton modifyThumbnailState={modifyThumbnailState} onClick={onModifyThumbnailModal} />
+          <ModalCardModifyButton
+            modifycolorState={modifycolorState}
+            disabled={colorDisabled}
+            onClick={onModifyColorModal}
+          />
+          <ModalCardModifyButton
+            modifyThumbnailState={modifyThumbnailState}
+            disabled={thumbnailDisabled}
+            onClick={onModifyThumbnailModal}
+          />
         </div>
         <ModalButtonWrap>
           <ModalButton>저장</ModalButton>
@@ -89,12 +107,46 @@ const modifyThumbnailModalOpen = keyframes`
     height: 36px;
     border-radius: 50%;
   }
+
+  50% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transform: translateX(150px);
+  }
   
   100% {
     width: 150px;
     height: 150px;
     border-radius: 6px;
     transform: translate(240px, -60px);
+    opacity: 1;
+
+  }
+`;
+
+const modifyThumbnailModalClose = keyframes`
+  0% {
+    width: 150px;
+    height: 150px;
+    border-radius: 6px;
+    transform: translate(240px, -60px);
+    opacity: 1;
+  }
+
+  50% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transform: translateX(150px);
+  }
+  
+  100% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transform: translate(0, 0);
+    opacity: 0.2;
   }
 `;
 
@@ -105,11 +157,44 @@ const modifyColorModalOpen = keyframes`
     border-radius: 50%;
   }
 
+  50% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transform: translateX(-150px);
+  }
+
   100% {
     width: 150px;
     height: 150px;
     border-radius: 6px;
     transform: translate(-240px, 60px);
+    opacity: 1;
+  }
+`;
+
+const modifyColorModalClose = keyframes`
+  0% {
+    width: 150px;
+    height: 150px;
+    border-radius: 6px;
+    transform: translate(-240px, 60px);
+    opacity: 1;
+  }
+
+  50% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transform: translateX(-150px);
+  }
+
+  100% {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transform: translate(0, 0);
+    opacity: 0.2;
   }
 `;
 
@@ -174,19 +259,21 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
   height: 36px;
   border-radius: 50%;
   background-color: #01f5bb;
-  transform-origin: center center;
+  opacity: 0.2;
+  transform-origin: left center;
 
   &:first-child {
     bottom: 140px;
     left: 50px;
 
     ${(props) =>
-      props.modifycolorState &&
-      css`
-        display: flex;
-        align-items: center;
-        animation: ${modifyColorModalOpen} 4s ease-in-out 1 both;
-      `}
+      props.modifycolorState
+        ? css`
+            animation: ${modifyColorModalOpen} 2s ease-in-out 1 both;
+          `
+        : css`
+            animation: ${modifyColorModalClose} 2s ease-in-out 1 both;
+          `}
   }
 
   &:last-child {
@@ -194,12 +281,13 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
     right: 50px;
 
     ${(props) =>
-      props.modifyThumbnailState &&
-      css`
-        display: flex;
-        align-items: center;
-        animation: ${modifyThumbnailModalOpen} 4s ease-in-out 1 both;
-      `}
+      props.modifyThumbnailState
+        ? css`
+            animation: ${modifyThumbnailModalOpen} 2s ease-in-out 1 both;
+          `
+        : css`
+            animation: ${modifyThumbnailModalClose} 2s ease-in-out 1 both;
+          `}
   }
 `;
 

@@ -2,9 +2,9 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { IModal } from '../../typings/Common';
 
-const Modal = ({ modalState, onCloseModal, width, children }: IModal) => {
+const Modal = ({ modalState, width, children }: IModal) => {
   return (
-    <ModalContainer className="modal" modalState={modalState} onClick={onCloseModal}>
+    <ModalContainer className="modal" modalState={modalState}>
       <ModalContent width={width}>{children}</ModalContent>
     </ModalContainer>
   );
