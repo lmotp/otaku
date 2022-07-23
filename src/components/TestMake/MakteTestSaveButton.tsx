@@ -11,6 +11,7 @@ const mokingHotUserItem = { id: 1, src: whee1, title: '휘인의 유튜브 영�
 interface modifyModalStyle {
   modifycolorState?: boolean;
   modifyThumbnailState?: boolean;
+  modalState?: boolean;
 }
 
 const MakteTestSaveButton = () => {
@@ -72,11 +73,13 @@ const MakteTestSaveButton = () => {
         <div>
           <ModalCardModifyButton
             modifycolorState={modifycolorState}
+            modalState={modalState}
             disabled={colorDisabled}
             onClick={onModifyColorModal}
           />
           <ModalCardModifyButton
             modifyThumbnailState={modifyThumbnailState}
+            modalState={modalState}
             disabled={thumbnailDisabled}
             onClick={onModifyThumbnailModal}
           />
@@ -101,6 +104,7 @@ const waveMove = keyframes`
   }
 `;
 
+// 모달창 움직일 때 애니메이션
 const modifyThumbnailModalOpen = keyframes`
   0% {
     width: 36px;
@@ -198,6 +202,21 @@ const modifyColorModalClose = keyframes`
   }
 `;
 
+//모달창 파동
+const modifyButtonWave = keyframes`
+  0% {
+    width: 46px;
+    height: 46px;
+    opacity: 0;
+  }
+
+  100% {
+    width: 46px;
+      height: 46px;
+      opacity: 1;
+  }
+`;
+
 const ButtonShadow = styled.div<{ hoverState: boolean }>`
   display: flex;
   align-items: center;
@@ -261,6 +280,26 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
   background-color: #01f5bb;
   opacity: 0.2;
   transform-origin: left center;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid #01f5bb;
+
+    transform: translate(-50%, -50%);
+
+    ${(props) =>
+      props.modalState &&
+      css`
+        animation: ${modifyButtonWave} 2s ease-in-out infinite;
+      `}
+  }
 
   &:first-child {
     bottom: 140px;
