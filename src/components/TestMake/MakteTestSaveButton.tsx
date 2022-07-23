@@ -125,7 +125,6 @@ const modifyThumbnailModalOpen = keyframes`
     border-radius: 6px;
     transform: translate(240px, -60px);
     opacity: 1;
-
   }
 `;
 
@@ -150,7 +149,7 @@ const modifyThumbnailModalClose = keyframes`
     height: 36px;
     border-radius: 50%;
     transform: translate(0, 0);
-    opacity: 0.2;
+    opacity: 0.5;
   }
 `;
 
@@ -198,22 +197,19 @@ const modifyColorModalClose = keyframes`
     height: 36px;
     border-radius: 50%;
     transform: translate(0, 0);
-    opacity: 0.2;
+    opacity: 0.5;
   }
 `;
 
 //모달창 파동
 const modifyButtonWave = keyframes`
   0% {
-    width: 46px;
-    height: 46px;
-    opacity: 0;
+    transform: scale(0);
+    opacity: 1;
   }
-
   100% {
-    width: 46px;
-      height: 46px;
-      opacity: 1;
+    transform: scale(2);
+    opacity: 0;
   }
 `;
 
@@ -278,26 +274,39 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
   height: 36px;
   border-radius: 50%;
   background-color: #01f5bb;
-  opacity: 0.2;
+  opacity: 1;
   transform-origin: left center;
 
-  &::after {
+  &:before,
+  &:after {
     content: '';
-    display: block;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 46px;
-    height: 46px;
+    top: 0;
+    right: 0;
+    display: block;
+    backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    border: 2px solid #01f5bb;
+    background-color: #01f5bb;
+    z-index: -1;
 
-    transform: translate(-50%, -50%);
-
+    transform: scale(0);
+  }
+  &:before {
     ${(props) =>
       props.modalState &&
       css`
-        animation: ${modifyButtonWave} 2s ease-in-out infinite;
+        animation: ${modifyButtonWave} 2s infinite ease-out;
+      `}
+  }
+
+  &:after {
+    opacity: 0;
+    ${(props) =>
+      props.modalState &&
+      css`
+        animation: ${modifyButtonWave} 2s 1.5s infinite ease-out;
       `}
   }
 
