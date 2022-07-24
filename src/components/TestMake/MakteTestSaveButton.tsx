@@ -5,13 +5,16 @@ import UserTestCard from '../TestHome/UserTestCard';
 import { ReactComponent as Waring } from '../../assets/imgs/Waring.svg';
 
 import whee1 from '../../assets/imgs/whee1.jfif';
+import MakeTestModifyColorModal from './MakeTestModifyColorModal';
+import MakeTestModifyThumbnailModal from './MakeTestModifyThumbnailModal';
 
 const mokingHotUserItem = { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' };
 
 interface modifyModalStyle {
   modifycolorState?: boolean;
   modifyThumbnailState?: boolean;
-  modalState?: boolean;
+  colorButtonWaveState?: boolean;
+  thumbnailButtonWaveState?: boolean;
 }
 
 const MakteTestSaveButton = () => {
@@ -21,24 +24,40 @@ const MakteTestSaveButton = () => {
   const [modifycolorState, setModifyColorState] = useState(false);
   const [colorDisabled, setColorDisabled] = useState(false);
   const [thumbnailDisabled, setThumbnailDisabled] = useState(false);
+  const [colorButtonWaveState, setColorButtonWaveState] = useState(false);
+  const [thumbnailButtonWaveState, setThumbnailButtonWaveState] = useState(false);
+  const [colorTest, setColorTest] = useState(false);
+  const [thumbnailTest, setThumbnailTest] = useState(false);
 
-  const onCloseModal = (e: any) => {
+  //모달 닫고 모달관련 setState 초기화
+  const onCloseModal = () => {
     setModalState(false);
     setModifyColorState(false);
     setModifyThumbnailState(false);
   };
 
+  //썸네일 모달
   const onModifyThumbnailModal = () => {
     setThumbnailDisabled(true);
     setModifyThumbnailState(!modifyThumbnailState);
+    setThumbnailButtonWaveState(!thumbnailButtonWaveState);
     setTimeout(() => {
+      if (!modifyThumbnailState) {
+        setThumbnailTest(true);
+      }
       setThumbnailDisabled(false);
     }, 2000);
+
+    if (modifyThumbnailState) {
+      setThumbnailTest(false);
+    }
   };
 
+  //컬러 모달
   const onModifyColorModal = () => {
     setColorDisabled(true);
     setModifyColorState(!modifycolorState);
+    setColorButtonWaveState(!colorButtonWaveState);
     setTimeout(() => {
       setColorDisabled(false);
     }, 2000);
@@ -50,7 +69,11 @@ const MakteTestSaveButton = () => {
         hoverState={hoverState}
         onMouseEnter={() => setHoverState(true)}
         onMouseLeave={() => setHoverState(false)}
-        onClick={() => setModalState(true)}
+        onClick={() => {
+          setModalState(true);
+          setThumbnailButtonWaveState(true);
+          setColorButtonWaveState(true);
+        }}
       >
         <ButtonWrap>
           <Button hoverState={hoverState}>완료</Button>
@@ -73,16 +96,21 @@ const MakteTestSaveButton = () => {
         <div>
           <ModalCardModifyButton
             modifycolorState={modifycolorState}
-            modalState={modalState}
+            colorButtonWaveState={colorButtonWaveState}
             disabled={colorDisabled}
             onClick={onModifyColorModal}
-          />
+          >
+            {colorTest && <MakeTestModifyColorModal />}
+          </ModalCardModifyButton>
+
           <ModalCardModifyButton
             modifyThumbnailState={modifyThumbnailState}
-            modalState={modalState}
+            thumbnailButtonWaveState={thumbnailButtonWaveState}
             disabled={thumbnailDisabled}
             onClick={onModifyThumbnailModal}
-          />
+          >
+            {thumbnailTest && <MakeTestModifyThumbnailModal />}
+          </ModalCardModifyButton>
         </div>
         <ModalButtonWrap>
           <ModalButton>저장</ModalButton>
@@ -94,6 +122,7 @@ const MakteTestSaveButton = () => {
 };
 
 export default MakteTestSaveButton;
+//물결 표시 애니메이션
 const waveMove = keyframes`
   0% {
     transform: translate(-5px, -15px);
@@ -110,6 +139,8 @@ const modifyThumbnailModalOpen = keyframes`
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    padding: 0;
+
   }
 
   50% {
@@ -120,21 +151,21 @@ const modifyThumbnailModalOpen = keyframes`
   }
   
   100% {
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: auto;
     border-radius: 6px;
-    transform: translate(240px, -60px);
-    opacity: 1;
+    transform: translateX(240px);
+    padding: 20px;
   }
 `;
 
 const modifyThumbnailModalClose = keyframes`
   0% {
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: auto;
     border-radius: 6px;
-    transform: translate(240px, -60px);
-    opacity: 1;
+    transform: translateX(240px);
+    padding: 20px;
   }
 
   50% {
@@ -148,8 +179,8 @@ const modifyThumbnailModalClose = keyframes`
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    transform: translate(0, 0);
-    opacity: 0.5;
+    transform: translateX(0);
+    padding: 0;
   }
 `;
 
@@ -164,25 +195,25 @@ const modifyColorModalOpen = keyframes`
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    transform: translateX(-150px);
+    transform: translateX(-240px);
   }
 
   100% {
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: auto;
     border-radius: 6px;
-    transform: translate(-240px, 60px);
-    opacity: 1;
+    transform: translateX(-240px);
+    padding: 20px;
   }
 `;
 
 const modifyColorModalClose = keyframes`
   0% {
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: auto;
     border-radius: 6px;
-    transform: translate(-240px, 60px);
-    opacity: 1;
+    transform: translateX(-240px);
+    padding: 20px;
   }
 
   50% {
@@ -196,8 +227,8 @@ const modifyColorModalClose = keyframes`
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    transform: translate(0, 0);
-    opacity: 0.5;
+    transform: translateX();
+    padding: 0;
   }
 `;
 
@@ -274,8 +305,6 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
   height: 36px;
   border-radius: 50%;
   background-color: #01f5bb;
-  opacity: 1;
-  transform-origin: left center;
 
   &:before,
   &:after {
@@ -284,7 +313,6 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
     top: 0;
     right: 0;
     display: block;
-    backface-visibility: hidden;
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -292,22 +320,6 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
     z-index: -1;
 
     transform: scale(0);
-  }
-  &:before {
-    ${(props) =>
-      props.modalState &&
-      css`
-        animation: ${modifyButtonWave} 2s infinite ease-out;
-      `}
-  }
-
-  &:after {
-    opacity: 0;
-    ${(props) =>
-      props.modalState &&
-      css`
-        animation: ${modifyButtonWave} 2s 1.5s infinite ease-out;
-      `}
   }
 
   &:first-child {
@@ -322,6 +334,18 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
         : css`
             animation: ${modifyColorModalClose} 2s ease-in-out 1 both;
           `}
+
+    &::after,::before {
+      ${(props) =>
+        props.colorButtonWaveState &&
+        css`
+          animation: ${modifyButtonWave} 2s infinite ease-out;
+        `}
+    }
+
+    &:after {
+      animation-delay: 1.5s;
+    }
   }
 
   &:last-child {
@@ -336,6 +360,18 @@ const ModalCardModifyButton = styled.button<modifyModalStyle>`
         : css`
             animation: ${modifyThumbnailModalClose} 2s ease-in-out 1 both;
           `}
+
+    &::after,::before {
+      ${(props) =>
+        props.thumbnailButtonWaveState &&
+        css`
+          animation: ${modifyButtonWave} 2s infinite ease-out;
+        `}
+    }
+
+    &:after {
+      animation-delay: 1.5s;
+    }
   }
 `;
 
