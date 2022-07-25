@@ -59,8 +59,15 @@ const MakteTestSaveButton = () => {
     setModifyColorState(!modifycolorState);
     setColorButtonWaveState(!colorButtonWaveState);
     setTimeout(() => {
+      if (!modifycolorState) {
+        setColorTest(true);
+      }
       setColorDisabled(false);
     }, 2000);
+
+    if (!modifycolorState) {
+      setColorTest(false);
+    }
   };
 
   return (
