@@ -36,6 +36,7 @@ const MakteTestSaveButton = () => {
     setModifyThumbnailState(false);
   };
 
+  //썸네일 모달과 컬러 모달 순수함수로 나중에 수정해야함
   //썸네일 모달
   const onModifyThumbnailModal = () => {
     setThumbnailDisabled(true);

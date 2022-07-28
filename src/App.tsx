@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/test" element={<TestHome />} />
             <Route path="/test/make" element={<TestMake />} />
-            <Route path="/test/real" element={<RealTimeMusicGame />} />
+            <Route path="/real" element={<RealTimeMusicGame />} />
           </Routes>
         </Container>
         <Aside />
