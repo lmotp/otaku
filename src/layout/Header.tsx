@@ -20,7 +20,7 @@ const Header = () => {
             <GnbTab to="/test">테스트</GnbTab>
           </TabList>
           <TabList>
-            <GnbTab to="/real">테스트(실시간)</GnbTab>
+            <GnbTab to="/music">테스트(실시간)</GnbTab>
           </TabList>
           <TabList>
             <GnbTab to="/category">카테고리</GnbTab>

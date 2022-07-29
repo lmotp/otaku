@@ -7,7 +7,7 @@ import Aside from './layout/Aside';
 
 import TestMake from './pages/TestMake';
 import TestHome from './pages/TestHome';
-import RealTimeMusicGame from './pages/RealTimeMusicGame';
+import MusicTestMake from './pages/MusicTestMake';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/test" element={<TestHome />} />
             <Route path="/test/make" element={<TestMake />} />
-            <Route path="/real" element={<RealTimeMusicGame />} />
+            <Route path="/music" element={<MusicTestMake />} />
           </Routes>
         </Container>
         <Aside />
