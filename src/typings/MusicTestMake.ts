@@ -1,4 +1,4 @@
 export interface IMusicQuizInfo {
-  key: any;
-  item: never;
+  item: any;
+  onMusicQuizAdd: (newQuizItem: string) => void;
 }

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import mongoDb from '../apis/mongoDb';
 import youtube from '../apis/youtube';
 import NotYoutbeCard from '../components/MusicTestMake/NotYoutbeCard';
 import YoutubeCard from '../components/MusicTestMake/YoutubeCard';
@@ -11,17 +13,30 @@ import YoutubeCard from '../components/MusicTestMake/YoutubeCard';
 const RealTimeMusicGame = () => {
   const [searchInput, setSearchInput] = useState('');
   const [videoItems, setVideoItems] = useState([]);
+  const [musicQuizItems, setMusicQuizItems] = useState<string[]>([]);
 
   const onSearchSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await youtube.get(`/search?q=${searchInput}&type=video&videoCategoryId=10`);
-    console.log(response);
 
+    const response = await youtube.get(`/search?q=${searchInput}&type=video&videoCategoryId=10`);
     setVideoItems(response.data.items);
+  };
+
+  const onMusicQuizAdd = useCallback(
+    (newQuizItem: string) => {
+      setMusicQuizItems([...musicQuizItems, newQuizItem]);
+    },
+    [musicQuizItems],
+  );
+
+  const onMusicQuiz = () => {
+    mongoDb.post('/quiz/music/make', { musicQuizItems }).then((res) => console.log(res));
   };
 
   return (
     <section>
+      <button onClick={onMusicQuiz}>보내기</button>
+
       <Form onSubmit={onSearchSubmit}>
         <TextInput
           type="text"
@@ -37,7 +52,11 @@ const RealTimeMusicGame = () => {
         {!videoItems.length ? (
           <NotYoutbeCard />
         ) : (
-          videoItems.map((item, index) => <YoutubeCard key={index} item={item} />)
+          <CardWrap>
+            {videoItems.map((item, index) => (
+              <YoutubeCard key={index} item={item} onMusicQuizAdd={onMusicQuizAdd} />
+            ))}
+          </CardWrap>
         )}
       </ItemContainer>
     </section>
@@ -63,3 +82,9 @@ const TextInput = styled.input`
 `;
 
 const ItemContainer = styled.div``;
+
+const CardWrap = styled.ul`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+`;
