@@ -30,6 +30,8 @@ const RealTimeMusicGame = () => {
   );
 
   const onMusicQuiz = () => {
+    console.log(musicQuizItems);
+
     mongoDb.post('/quiz/music/make', { musicQuizItems }).then((res) => console.log(res));
   };
 

@@ -23,8 +23,6 @@ app.use(cors());
 
 app.use('/api/image', express.static(__dirname + '/uploads'));
 
-console.log(__dirname + '/uploads');
-
 function connect() {
   mongoose
     .connect(process.env.MONGO_URI, { minPoolSize: 100, useNewUrlParser: true })
