@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import mongoDb from '../apis/mongoDb';
 import youtube from '../apis/youtube';
@@ -15,6 +14,9 @@ const RealTimeMusicGame = () => {
   const [videoItems, setVideoItems] = useState([]);
   const [musicQuizItems, setMusicQuizItems] = useState<string[]>([]);
 
+  const audioRef = useRef<any>(null);
+  const sourceRef = useRef<any>(null);
+
   const onSearchSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -29,10 +31,18 @@ const RealTimeMusicGame = () => {
     [musicQuizItems],
   );
 
-  const onMusicQuiz = () => {
-    console.log(musicQuizItems);
+  const onMusicQuiz = async () => {
+    await mongoDb.post('/quiz/music/make', { musicQuizItems }).then(({ data }) => {
+      sourceRef.current.src = data;
+    });
 
-    mongoDb.post('/quiz/music/make', { musicQuizItems }).then((res) => console.log(res));
+    audioRef.current.load();
+
+    const playPromise = audioRef.current.play();
+
+    playPromise.then(() => {
+      audioRef.current?.play();
+    });
   };
 
   return (
@@ -61,6 +71,10 @@ const RealTimeMusicGame = () => {
           </CardWrap>
         )}
       </ItemContainer>
+
+      <audio ref={audioRef} controls>
+        <source ref={sourceRef} />
+      </audio>
     </section>
   );
 };

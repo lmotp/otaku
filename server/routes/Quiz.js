@@ -1,17 +1,15 @@
 const express = require('express');
-const Youtubestream = require('../middleware/YoutubeStream');
 const router = express.Router();
+
+const ytdl = require('ytdl-core');
 
 router.post('/music/make', async (req, res) => {
   const { musicQuizItems } = req.body;
 
-  const { stream } = new Youtubestream(musicQuizItems[0]);
+  let infoItem = await ytdl.getInfo(`https://www.youtube.com/watch?v=${musicQuizItems[0]}`);
+  let format = ytdl.chooseFormat(infoItem.formats, { quality: 'lowestaudio' });
 
-  for await (const chunk of stream) {
-    res.write(chunk);
-  }
-
-  res.end();
+  res.send(format.url);
 });
 
 module.exports = router;

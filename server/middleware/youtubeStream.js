@@ -1,7 +1,7 @@
 const { PassThrough } = require('stream');
 const fs = require('fs');
 
-const cloneable = 'cloneable-readable';
+const cloneable = require('cloneable-readable');
 const ytdl = require('ytdl-core');
 
 class Youtubestream {
@@ -13,8 +13,10 @@ class Youtubestream {
 
   get stream() {
     if (this.passThrough) {
-      return cloneable(this.passThrough);
+      return this.passThrough;
+      // return cloneable(this.passThrough);
     }
+
     return fs.createReadStream(this.mp3Path);
   }
 
@@ -27,7 +29,7 @@ class Youtubestream {
 
     const passThrough = new PassThrough();
     const writeStream = fs.createWriteStream(mp3Path);
-    const video = ytdl(`https://youtube.com/watch?v=${videoId}`, { quality: 'lowestaudio' });
+    const video = ytdl(`https://www.youtube.com/watch?v=${videoId}`, { quality: 'lowestaudio', filter: 'audioonly' });
 
     video.pipe(passThrough);
     passThrough.pipe(writeStream);
