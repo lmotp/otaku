@@ -67,6 +67,7 @@ const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem, cardIndex }: QuizInfoProp
           <IconTrash onClick={() => onDeletQuizItem(id)} />
         </QuizTopWrapRight>
       </QuizTopWrap>
+
       {addContentState ? (
         <QuizTextAreaWrap>
           <QuizContentsTextArea
@@ -80,6 +81,7 @@ const MakeTestQuiz = ({ quizInfo, id, onDeletQuizItem, cardIndex }: QuizInfoProp
           <QuizContentsButton onClick={onAddQuizContent} />
         </QuizContents>
       )}
+
       <QuizBottomWrap buttonType={quizType}>
         {quizInfo.examples.map((item) => (
           <QuizExampleWrap key={item.id} buttonType={quizType}>
@@ -142,6 +144,7 @@ const QuizTopWrapRight = styled.div`
 const IconMoveMenu = styled(MoveMenu)`
   cursor: move;
 `;
+
 const IconTrash = styled(Trash)`
   cursor: pointer;
 `;
