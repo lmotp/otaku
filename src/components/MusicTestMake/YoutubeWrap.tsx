@@ -7,7 +7,7 @@ import YoutubeCard from './YoutubeCard';
 const YoutubeWrap = () => {
   const [searchInput, setSearchInput] = useState('');
   const [videoItems, setVideoItems] = useState([]);
-  const [musicQuizItems, setMusicQuizItems] = useState<string[]>([]);
+  const [musicQuizItems, setMusicQuizItems] = useState<any>([]);
 
   const audioRef = useRef<any>(null);
   const sourceRef = useRef<any>(null);
@@ -21,6 +21,10 @@ const YoutubeWrap = () => {
 
   const onMusicQuizAdd = useCallback(
     (newQuizItem: string) => {
+      if (musicQuizItems.includes(newQuizItem)) {
+        return setMusicQuizItems(musicQuizItems.filter((videoId: string) => videoId !== newQuizItem));
+      }
+
       setMusicQuizItems([...musicQuizItems, newQuizItem]);
     },
     [musicQuizItems],

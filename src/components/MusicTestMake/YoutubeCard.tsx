@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { decode } from 'html-entities';
 import { IMusicQuizInfo } from '../../typings/MusicTestMake';
 
@@ -92,11 +92,43 @@ const ChannelTitle = styled.div`
 `;
 
 const CheckItemButton = styled.button<{ checkState: boolean }>`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 1px solid #304674;
-  animation: ${(props) => props.checkState && `${jelly} 0.6s ease`};
+  border: 1px solid #01f5bb;
+  transition: background-color 0.1s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    margin: 0 0 2px 1px;
+    width: 3px;
+    height: 6px;
+    opacity: 0;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+
+    transform: rotate(45deg) scale(0);
+    transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s;
+  }
+
+  ${(props) =>
+    props.checkState &&
+    css`
+      background-color: #01f5bb;
+      border-color: #01f5bb;
+      animation: ${jelly} 0.6s ease;
+
+      &::after {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+      }
+    `}
 `;
 
 const Title = styled.strong`
