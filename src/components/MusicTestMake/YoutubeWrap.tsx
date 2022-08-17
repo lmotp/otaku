@@ -2,7 +2,6 @@ import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import mongoDb from '../../apis/mongoDb';
 import youtube from '../../apis/youtube';
-import NotYoutbeCard from './NotYoutbeCard';
 import YoutubeCard from './YoutubeCard';
 
 const YoutubeWrap = () => {
@@ -43,7 +42,7 @@ const YoutubeWrap = () => {
 
   return (
     <Wrap>
-      <Form onSubmit={onSearchSubmit}>
+      <Form onSubmit={onSearchSubmit} videoItemsLength={videoItems.length}>
         <TextInput
           type="text"
           placeholder="Ex) 마마무 노래"
@@ -54,29 +53,27 @@ const YoutubeWrap = () => {
         />
       </Form>
 
-      <YoutubeItemWrap>
-        {!videoItems.length ? (
-          <NotYoutbeCard />
-        ) : (
-          <CardWrap>
-            {videoItems.map((item, index) => (
-              <YoutubeCard key={index} item={item} onMusicQuizAdd={onMusicQuizAdd} />
-            ))}
-          </CardWrap>
-        )}
-      </YoutubeItemWrap>
+      {videoItems.length > 0 && (
+        <CardWrap>
+          {videoItems.map((item, index) => (
+            <YoutubeCard key={index} item={item} onMusicQuizAdd={onMusicQuizAdd} />
+          ))}
+        </CardWrap>
+      )}
     </Wrap>
   );
 };
 
 export default YoutubeWrap;
 
-const Form = styled.form`
+const Form = styled.form<{ videoItemsLength: number }>`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  padding-bottom: ${(props) => (props.videoItemsLength ? '30px' : '0')};
   width: 100%;
+  height: ${(props) => (props.videoItemsLength ? 'auto' : '80px')};
 `;
 
 const TextInput = styled.input`
@@ -99,8 +96,6 @@ const Wrap = styled.div`
 
 const CardWrap = styled.ul`
   display: flex;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
 `;
-
-const YoutubeItemWrap = styled.div``;
