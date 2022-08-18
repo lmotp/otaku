@@ -4,7 +4,7 @@ import mongoDb from '../../apis/mongoDb';
 import youtube from '../../apis/youtube';
 import YoutubeCard from './YoutubeCard';
 
-const YoutubeWrap = () => {
+const YoutubeWrap = ({ setPlayList }: any) => {
   const [searchInput, setSearchInput] = useState('');
   const [videoItems, setVideoItems] = useState([]);
   const [musicQuizItems, setMusicQuizItems] = useState<any>([]);
@@ -26,8 +26,9 @@ const YoutubeWrap = () => {
       }
 
       setMusicQuizItems([...musicQuizItems, newQuizItem]);
+      setPlayList([]);
     },
-    [musicQuizItems],
+    [musicQuizItems, setPlayList],
   );
 
   // const onMusicQuiz = async () => {
@@ -69,37 +70,35 @@ const YoutubeWrap = () => {
 };
 
 export default YoutubeWrap;
+const Wrap = styled.div`
+  padding: 20px;
+  width: 70%;
+  height: auto;
+  border: 1px solid #304674;
+  border-radius: 20px 0 0 20px;
+  box-shadow: -2px 0 6px rgba(48, 70, 116, 0.3);
+`;
 
 const Form = styled.form<{ videoItemsLength: number }>`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: ${(props) => (props.videoItemsLength ? '30px' : '0')};
+  padding-bottom: ${(props) => (props.videoItemsLength ? '20px' : '0')};
   width: 100%;
   height: ${(props) => (props.videoItemsLength ? 'auto' : '80px')};
 `;
 
 const TextInput = styled.input`
   padding: 10px 6px;
-  width: 30%;
+  width: 50%;
   border-radius: 10px;
   border: 1px solid #01f5bb;
   outline: none;
 `;
 
-const Wrap = styled.div`
-  margin-bottom: 20px;
-  padding: 20px;
-  width: 100%;
-  height: auto;
-  border: 1px solid #304674;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -2px 6px rgba(48, 70, 116, 0.3);
-`;
-
 const CardWrap = styled.ul`
   display: flex;
-  gap: 20px;
+  gap: 12px;
   flex-wrap: wrap;
 `;

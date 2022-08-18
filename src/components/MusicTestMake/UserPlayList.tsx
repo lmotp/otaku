@@ -1,23 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import UserPlayListCard from './UserPlayListCard';
-import whee7 from '../../assets/imgs/whee7.jfif';
 
-const mockingPlayList = [
-  {
-    thumbnail: whee7,
-    title: '마마무 - 별이 빛나는 밤',
-    answer: '별이 빛나는 밤',
-    hint: '화사, Yellow Flower, 2018년',
-    startTime: '2 : 00',
-  },
-];
-
-const UserPlayList = () => {
+const UserPlayList = ({ playList }: any) => {
   return (
     <Wrap>
+      <Count>{playList.length} / 10</Count>
       <CardListWrap>
-        {mockingPlayList.map((info, index) => (
+        {playList.map((info: any, index: number) => (
           <UserPlayListCard key={index} mockingPlayList={info} index={index} />
         ))}
       </CardListWrap>
@@ -28,12 +18,23 @@ const UserPlayList = () => {
 export default UserPlayList;
 
 const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  width: 100%;
+  width: 28%;
   height: auto;
   border: 1px solid #304674;
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0 4px 6px rgba(48, 70, 116, 0.3);
+  border-radius: 0 20px 20px 0;
+  box-shadow: 4px 0 6px rgba(48, 70, 116, 0.3);
 `;
 
-const CardListWrap = styled.ul``;
+const Count = styled.div`
+  color: #304674;
+`;
+
+const CardListWrap = styled.ul`
+  height: auto;
+  overflow-y: auto;
+`;

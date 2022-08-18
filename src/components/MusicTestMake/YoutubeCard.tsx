@@ -20,11 +20,11 @@ const YoutubeCard = ({ item, onMusicQuizAdd }: IMusicQuizInfo) => {
     <Card onClick={onClick}>
       <Img src={item.snippet.thumbnails.medium.url}></Img>
       <div>
+        <Title>{videoTitle}</Title>
         <InfoTopWrap>
           <ChannelTitle>{item.snippet.channelTitle}</ChannelTitle>
           <CheckItemButton checkState={check} />
         </InfoTopWrap>
-        <Title>{videoTitle}</Title>
       </div>
     </Card>
   );
@@ -57,15 +57,15 @@ const jelly = keyframes`
 `;
 
 const Card = styled.li`
-  margin-bottom: 20px;
-  width: calc(25% - 15px);
+  margin-bottom: 10px;
+  width: calc(33% - 6px);
   border-radius: 4px;
   cursor: pointer;
 `;
 
 const Img = styled.img<{ src: string }>`
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   width: 100%;
   object-fit: cover;
   border-radius: 4px;
@@ -76,14 +76,13 @@ const InfoTopWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  padding: 0 6px 6px 0;
+  padding-right: 6px;
   width: 100%;
-  border-bottom: 1px solid black;
 `;
 
 const ChannelTitle = styled.div`
-  width: 80%;
-  font-size: 0.875rem;
+  width: 90%;
+  font-size: 0.75rem;
   line-height: 1.5;
   vertical-align: top;
   overflow: hidden;
@@ -96,8 +95,8 @@ const CheckItemButton = styled.button<{ checkState: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 1px solid #01f5bb;
   transition: background-color 0.1s ease;
@@ -106,7 +105,7 @@ const CheckItemButton = styled.button<{ checkState: boolean }>`
     content: '';
     position: absolute;
     display: block;
-    margin: 0 0 2px 1px;
+    margin-bottom: 2px;
     width: 3px;
     height: 6px;
     opacity: 0;
@@ -133,7 +132,10 @@ const CheckItemButton = styled.button<{ checkState: boolean }>`
 
 const Title = styled.strong`
   display: -webkit-box;
-  height: 50px;
+  margin-bottom: 6px;
+  height: 42px;
+  font-size: 0.875rem;
+  font-weight: 700;
   line-height: 1.5;
   overflow: hidden;
   vertical-align: top;
