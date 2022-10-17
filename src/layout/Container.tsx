@@ -9,7 +9,8 @@ const Container: FC<ContainerProps> = ({ children }) => {
 export default Container;
 
 const MainContainer = styled.main`
+  margin: 0 auto;
   padding-top: 40px;
   width: 100%;
-  max-width: 1320px;
+  max-width: 1280px;
 `;

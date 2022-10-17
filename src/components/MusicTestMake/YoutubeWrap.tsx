@@ -20,13 +20,13 @@ const YoutubeWrap = ({ setPlayList }: any) => {
   };
 
   const onMusicQuizAdd = useCallback(
-    (newQuizItem: string) => {
+    (newQuizItem: any) => {
       if (musicQuizItems.includes(newQuizItem)) {
-        return setMusicQuizItems(musicQuizItems.filter((videoId: string) => videoId !== newQuizItem));
+        return setMusicQuizItems(musicQuizItems.filter((videoItem: any) => videoItem.videoId !== newQuizItem.videoId));
       }
 
       setMusicQuizItems([...musicQuizItems, newQuizItem]);
-      setPlayList([]);
+      setPlayList([...musicQuizItems, newQuizItem]);
     },
     [musicQuizItems, setPlayList],
   );

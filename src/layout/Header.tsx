@@ -3,33 +3,35 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import logo from '../assets/imgs/logo.svg';
+import Aside from './Aside';
 
 const Header = () => {
   const navigate = useNavigate();
   return (
     <HeaderContainer>
-      <h1>
-        <Logo src={logo} onClick={() => navigate('/')} />
-      </h1>
-      <nav>
-        <ul>
-          <TabList>
-            <GnbTab to="/">모임</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/test">테스트</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/music">테스트(실시간)</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/category">카테고리</GnbTab>
-          </TabList>
-          <TabList>
-            <GnbTab to="/my-page">마이페이지</GnbTab>
-          </TabList>
-        </ul>
-      </nav>
+      <HeaderWrap>
+        <h1>
+          <Logo src={logo} onClick={() => navigate('/')} />
+        </h1>
+        <Nav>
+          <TabListWarp>
+            <TabList>
+              <GnbTab to="/community">모임</GnbTab>
+            </TabList>
+            <TabList>
+              <GnbTab to="/test">테스트</GnbTab>
+            </TabList>
+            <TabList>
+              <GnbTab to="/music">테스트(실시간)</GnbTab>
+            </TabList>
+            <TabList>
+              <GnbTab to="/photo-card">포카찾기</GnbTab>
+            </TabList>
+          </TabListWarp>
+        </Nav>
+
+        <Aside />
+      </HeaderWrap>
     </HeaderContainer>
   );
 };
@@ -37,24 +39,42 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.header`
-  margin-right: 150px;
-  padding-left: 80px;
-  padding-top: 100px;
-  height: 100vh;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaedef;
+  z-index: 9999;
+`;
+
+const HeaderWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  height: 80px;
 `;
 
 const Logo = styled.img`
-  margin-bottom: 100px;
+  width: 80%;
   cursor: pointer;
 `;
 
-const TabList = styled.li`
-  margin-bottom: 50px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+const Nav = styled.nav`
+  width: 100%;
 `;
+
+const TabListWarp = styled.ul`
+  display: flex;
+  gap: 20px;
+`;
+
+const TabList = styled.li``;
 
 const GnbTab = styled(NavLink)`
   font-size: 1rem;

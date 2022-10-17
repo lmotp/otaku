@@ -6,13 +6,14 @@ import whee4 from '../assets/imgs/whee4.jfif';
 import whee5 from '../assets/imgs/whee5.jfif';
 import whee6 from '../assets/imgs/whee6.jfif';
 import whee7 from '../assets/imgs/whee7.jfif';
+
 import UserTestCard from '../components/TestHome/UserTestCard';
 import SubTitle from '../components/common/SubTitle';
 import styled from 'styled-components';
 import MyTestCard from '../components/TestHome/MyTestCard';
 import MakeMyTestCard from '../components/TestHome/MakeMyTestCard';
 import Tag from '../components/common/Tag';
-import PagiNation from '../components/PagiNation/PagiNation';
+import PagiNation from '../components/common/PagiNation/PagiNation';
 
 const mokingHotUserItem = [
   { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },

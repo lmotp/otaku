@@ -31,7 +31,7 @@ export default SearchInput;
 
 const Form = styled.form`
   position: absolute;
-  right: 60px;
+  right: calc(100% - 32px);
 `;
 
 const Input = styled.input`
@@ -40,6 +40,7 @@ const Input = styled.input`
   width: 300px;
   height: 50px;
   border: 5px solid #01f5bb;
+  border-right: 32px solid #01f5bb;
   border-radius: 16px;
   outline: none;
   color: #01f5bb;

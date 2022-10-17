@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IPagiNation } from '../../typings/PagiNation';
+import { IPagiNation } from '../../../typings/PagiNation';
 
 const PagiNationButton = ({ buttonIndex, active, onChangeActiveButton }: IPagiNation) => {
   return (

@@ -35,6 +35,6 @@ const Count = styled.div`
 `;
 
 const CardListWrap = styled.ul`
-  height: auto;
+  max-height: 780px;
   overflow-y: auto;
 `;

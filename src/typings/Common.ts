@@ -6,7 +6,7 @@ export interface ITag {
 
 export interface ISubTitle {
   title: string;
-  marginBottom: number;
+  marginBottom?: number;
 }
 
 export interface IModal {

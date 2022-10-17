@@ -12,7 +12,7 @@ const YoutubeCard = ({ item, onMusicQuizAdd }: IMusicQuizInfo) => {
   }, [item.snippet.title]);
 
   const onClick = () => {
-    onMusicQuizAdd(item.id.videoId);
+    onMusicQuizAdd({ videoId: item.id.videoId, title: videoTitle, thumbnail: item.snippet.thumbnails.medium.url });
     setCheck(!check);
   };
 
