@@ -1,17 +1,18 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router';
-import styled from 'styled-components';
-import logo from '../assets/imgs/logo.svg';
-import Aside from './Aside';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
+import logo from "../assets/imgs/logo.svg";
+import Aside from "./Aside";
 
 const Header = () => {
   const navigate = useNavigate();
+
   return (
     <HeaderContainer>
       <HeaderWrap>
         <h1>
-          <Logo src={logo} onClick={() => navigate('/')} />
+          <Logo src={logo} onClick={() => navigate("/")} />
         </h1>
         <Nav>
           <TabListWarp>

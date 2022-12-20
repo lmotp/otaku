@@ -1,7 +1,11 @@
-import React from 'react';
+import PopluarMeeting from "../components/common/Popluar/PopluarMeeting";
 
-const Community = () => {
-  return <div>Community</div>;
-};
+function Community() {
+  return (
+    <>
+      <PopluarMeeting />
+    </>
+  );
+}
 
 export default Community;

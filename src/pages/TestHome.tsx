@@ -1,47 +1,47 @@
-import React, { useState } from 'react';
-import whee1 from '../assets/imgs/whee1.jfif';
-import whee2 from '../assets/imgs/whee2.jfif';
-import whee3 from '../assets/imgs/whee3.jfif';
-import whee4 from '../assets/imgs/whee4.jfif';
-import whee5 from '../assets/imgs/whee5.jfif';
-import whee6 from '../assets/imgs/whee6.jfif';
-import whee7 from '../assets/imgs/whee7.jfif';
+import React, { useState } from "react";
+import whee1 from "../assets/imgs/whee1.jfif";
+import whee2 from "../assets/imgs/whee2.jfif";
+import whee3 from "../assets/imgs/whee3.jfif";
+import whee4 from "../assets/imgs/whee4.jfif";
+import whee5 from "../assets/imgs/whee5.jfif";
+import whee6 from "../assets/imgs/whee6.jfif";
+import whee7 from "../assets/imgs/whee7.jfif";
 
-import UserTestCard from '../components/TestHome/UserTestCard';
-import SubTitle from '../components/common/SubTitle';
-import styled from 'styled-components';
-import MyTestCard from '../components/TestHome/MyTestCard';
-import MakeMyTestCard from '../components/TestHome/MakeMyTestCard';
-import Tag from '../components/common/Tag';
-import PagiNation from '../components/common/PagiNation/PagiNation';
+import UserTestCard from "../components/TestHome/UserTestCard";
+import SubTitle from "../components/common/SubTitle";
+import styled from "styled-components";
+import MyTestCard from "../components/TestHome/MyTestCard";
+import MakeMyTestCard from "../components/TestHome/MakeMyTestCard";
+import Tag from "../components/common/Tag";
+import PagiNation from "../components/common/PagiNation/PagiNation";
 
 const mokingHotUserItem = [
-  { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 2, src: whee2, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 3, src: whee3, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 4, src: whee4, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 1, src: whee1, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 2, src: whee2, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 3, src: whee3, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 4, src: whee4, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
 ];
 
 const mokingNowUserItem = [
-  { id: 1, src: whee1, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 2, src: whee2, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 3, src: whee3, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 4, src: whee4, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
-  { id: 5, src: whee5, title: '휘인의 유튜브 영상이 아닌것은?', tag: '여자아이돌' },
+  { id: 1, src: whee1, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 2, src: whee2, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 3, src: whee3, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 4, src: whee4, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
+  { id: 5, src: whee5, title: "휘인의 유튜브 영상이 아닌것은?", tag: "여자아이돌" },
 ];
 
 const mokingMyItem = [
-  { id: 1, src: whee5, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
-  { id: 2, src: whee6, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
-  { id: 3, src: whee7, title: '휘인의 유튜브 영상이 아닌것은?', view: 337, makeDay: new Date(), tag: '여자아이돌' },
+  { id: 1, src: whee5, title: "휘인의 유튜브 영상이 아닌것은?", view: 337, makeDay: new Date(), tag: "여자아이돌" },
+  { id: 2, src: whee6, title: "휘인의 유튜브 영상이 아닌것은?", view: 337, makeDay: new Date(), tag: "여자아이돌" },
+  { id: 3, src: whee7, title: "휘인의 유튜브 영상이 아닌것은?", view: 337, makeDay: new Date(), tag: "여자아이돌" },
 ];
 
-const buttonTag = ['전체', '남자아이돌', '여자아이돌', '솔로가수', '배우', '작가', '기타'];
+const buttonTag = ["전체", "남자아이돌", "여자아이돌", "솔로가수", "배우", "작가", "기타"];
 
-const noneItemArray = Array(2).fill('');
+const noneItemArray = Array(2).fill("");
 
 const TestHome = () => {
-  const [actvieButton, setActiveButton] = useState<string>('전체');
+  const [actvieButton, setActiveButton] = useState<string>("전체");
 
   const onChangeActiveButton = (value: string) => {
     setActiveButton(value);
@@ -81,11 +81,11 @@ const TestHome = () => {
               key={info.id}
               cardInfoObj={info}
               styleProps={{
-                width: '308px',
-                height: '460px',
+                width: "308px",
+                height: "460px",
               }}
               titleSize="1.5rem"
-              buttonStyleProps={{ buttonSize: '16px', width: '154px', height: '44px' }}
+              buttonStyleProps={{ buttonSize: "16px", width: "154px", height: "44px" }}
             />
           );
         })}
@@ -99,11 +99,11 @@ const TestHome = () => {
               key={info.id}
               cardInfoObj={info}
               styleProps={{
-                width: '240px',
-                height: '380px',
+                width: "240px",
+                height: "380px",
               }}
               titleSize="1.313rem"
-              buttonStyleProps={{ buttonSize: '14px', width: '120px', height: '36px' }}
+              buttonStyleProps={{ buttonSize: "14px", width: "120px", height: "36px" }}
             />
           );
         })}
@@ -123,7 +123,7 @@ const MyCardWrap = styled.ul`
   margin-bottom: 50px;
 
   &::before {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -137,7 +137,7 @@ const MyCardWrap = styled.ul`
   }
 
   &::after {
-    content: '▶';
+    content: "▶";
     display: block;
     position: absolute;
     top: 50%;
