@@ -8,6 +8,7 @@ import whee2 from "../assets/imgs/whee2.jfif";
 import whee5 from "../assets/imgs/whee5.jfif";
 import whee6 from "../assets/imgs/whee6.jfif";
 import whee7 from "../assets/imgs/whee7.jfif";
+import GroupPurchase from "../components/PhotoCard/GroupPurchase";
 
 const Home = () => {
   const mokingPopluarItem = [
@@ -28,6 +29,9 @@ const Home = () => {
           return <MyTestCard key={info.id} cardInfoObj={info} />;
         })}
       </PopluarTest>
+
+      <SubTitle title="지금 인기있는 분철" marginBottom={20} />
+      <GroupPurchase />
     </>
   );
 };

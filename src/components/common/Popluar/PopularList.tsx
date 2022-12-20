@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function PopularList() {
   return (
     <List>
-      <ListImgWrap to="/" aftersrc={"https://pbs.twimg.com/media/EWNj92iU4AAdPEb.jpg"}>
+      <ListImgWrap to="/" beforesrc={"https://pbs.twimg.com/media/EWNj92iU4AAdPEb.jpg"}>
         <ListImg src={"https://pbs.twimg.com/media/EWNj92iU4AAdPEb.jpg"} />
       </ListImgWrap>
     </List>
@@ -17,7 +17,7 @@ const List = styled.li`
   width: 100%;
 `;
 
-const ListImgWrap = styled(NavLink)<{ aftersrc: string }>`
+const ListImgWrap = styled(NavLink)<{ beforesrc: string }>`
   position: relative;
   display: block;
   height: 242px;
@@ -33,7 +33,7 @@ const ListImgWrap = styled(NavLink)<{ aftersrc: string }>`
     left: 50%;
     border-radius: inherit;
     opacity: 0.15;
-    background-image: ${(props) => `url(${props.aftersrc})`};
+    background-image: ${(props) => `url(${props.beforesrc})`};
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 100%;

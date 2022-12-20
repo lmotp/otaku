@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 @font-face {
@@ -7,14 +7,6 @@ const GlobalStyle = createGlobalStyle`
 	font-style: normal; 
 	src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream1.woff2) format('woff2'),
 				url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream1.woff) format('woff');
-	font-display: swap;
-}
-@font-face {
-	font-family: 'SCoreDream';
-	font-weight: 200; 
-	font-style: normal; 
-	src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream2.woff2) format('woff2'),
-			url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream2.woff) format('woff');
 	font-display: swap;
 }
 @font-face {

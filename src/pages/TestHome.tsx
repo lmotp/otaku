@@ -82,7 +82,7 @@ const TestHome = () => {
               cardInfoObj={info}
               styleProps={{
                 width: "308px",
-                height: "460px",
+                height: "422px",
               }}
               titleSize="1.5rem"
               buttonStyleProps={{ buttonSize: "16px", width: "154px", height: "44px" }}
